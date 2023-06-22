@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import SignUpForm from '../components/SignUpForm';
+import "../components/SignUpForm.module.css"
 
 const HomePage = () => {
   const router = useRouter();
@@ -12,13 +13,12 @@ const HomePage = () => {
 
     <div>
       <SignUpForm />
-      <p>
-        {response}
+      {/* <p>
         ¿Ya tenés una cuenta?{' '}
         <a onClick={handleLogin} style={{ cursor: 'pointer' }}>
           Iniciar sesión
         </a>
-      </p>
+      </p> */}
     </div>
   );
 };

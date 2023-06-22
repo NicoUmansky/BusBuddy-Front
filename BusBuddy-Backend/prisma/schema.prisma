@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Usuarios {
+  id             Int           @id @unique(map: "id") @default(autoincrement())
+  nombreapellido String
+  email          String
+  password       String
+  solicitudes    Solicitudes[]
+}
+
+model Colectivo {
+  id       Int    @id @unique(map: "id") @default(autoincrement())
+  interno  String
+  id_linea Int
+  linea    Lineas @relation(fields: [id_linea], references: [id])
+
+  @@index([id_linea], map: "id_linea")
+}
+
+model Paradas {
+  id        Int    @id @unique(map: "id") @default(autoincrement())
+  latitud   String
+  longitud  String
+  id_linea  Int
+  direccion String
+  linea     Lineas @relation(fields: [id_linea], references: [id])
+
+  @@index([id_linea], map: "id_linea")
+}
+
+model Solicitudes {
+  id            Int      @id @unique(map: "id") @default(autoincrement())
+  id_usuario    Int
+  id_linea      Int
+  paradaDestino Int
+  paradaInicio  Int
+  usuario       Usuarios @relation(fields: [id_usuario], references: [id])
+  linea         Lineas   @relation(fields: [id_linea], references: [id])
+
+  @@index([id_usuario], map: "id_usuario")
+  @@index([id_linea], map: "id_linea")
+}
+
+model Lineas {
+  id          Int           @id @unique(map: "id") @default(autoincrement())
+  linea       String
+  paradas     Paradas[]
+  colectivos  Colectivo[]
+  solicitudes Solicitudes[]
+}

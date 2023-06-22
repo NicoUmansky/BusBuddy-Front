@@ -1,0 +1,63 @@
+# GET http://localhost:3000/
+
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "nombreapellido": "Benjamin Chejtman",
+    "email": "benjichej@gmail.com",
+    "password": "123456"
+}
+
+###
+
+GET http://localhost:3000/users
+
+###
+
+GET http://localhost:3001/user/2
+
+###
+
+PUT http://localhost:3000/user/5
+Content-Type: application/json
+
+{
+    "nombreapellido": "Micaela Cuan",
+    "email": "micucuan@gmail.com",
+    "password": "123456"
+}
+
+###
+
+DELETE http://localhost:3000/user/5
+
+###
+
+GET http://localhost:3000/lineas
+
+###
+
+GET http://localhost:3000/lineas/2
+
+###
+
+POST http://localhost:3000/colectivos/2
+Content-Type: application/json
+
+{
+    "id_linea": 2,
+    "interno": "2921"
+}
+
+###
+
+POST http://localhost:3000/paradas/2
+Content-Type: application/json
+
+ {
+      "latitud": "-34.616193",
+      "longitud": "-58.382472",
+      "id_linea": 2,
+      "direccion": "Av. Congreso"
+ }
