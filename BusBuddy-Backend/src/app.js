@@ -119,4 +119,14 @@ app.post('/paradas/:id', async(req, res) => {
     res.json(parada);
 });
 
+app.get('/paradas/:id', async(req, res) => {
+    const { id } = req.params;
+    const parada = await prisma.Paradas.findUnique({
+        where: {
+            id: parseInt(id)
+        }
+    });
+    res.json(parada);
+});
+
 module.exports = app;

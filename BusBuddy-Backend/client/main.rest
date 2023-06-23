@@ -1,6 +1,6 @@
 # GET http://localhost:3000/
 
-POST http://localhost:3000/user
+POST http://localhost:3001/user
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/users
+GET http://localhost:3001/users
 
 ###
 
@@ -19,7 +19,7 @@ GET http://localhost:3001/user/2
 
 ###
 
-PUT http://localhost:3000/user/5
+PUT http://localhost:3001/user/5
 Content-Type: application/json
 
 {
@@ -30,19 +30,19 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/user/5
+DELETE http://localhost:3001/user/5
 
 ###
 
-GET http://localhost:3000/lineas
+GET http://localhost:3001/lineas
 
 ###
 
-GET http://localhost:3000/lineas/2
+GET http://localhost:3001/lineas/2
 
 ###
 
-POST http://localhost:3000/colectivos/2
+POST http://localhost:3001/colectivos/2
 Content-Type: application/json
 
 {
@@ -52,7 +52,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/paradas/2
+POST http://localhost:3001/paradas/2
 Content-Type: application/json
 
  {
@@ -61,3 +61,10 @@ Content-Type: application/json
       "id_linea": 2,
       "direccion": "Av. Congreso"
  }
+
+ ###
+
+
+GET http://localhost:3000/parada/3
+
+###
