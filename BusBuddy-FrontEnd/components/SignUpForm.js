@@ -4,6 +4,7 @@ import styles from './SignUpForm.module.css';
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,6 +14,10 @@ const SignUpForm = () => {
     setPassword(e.target.value);
   };
 
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle sign-up logic here
@@ -20,23 +25,37 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
-      <h2 className={styles.title}>Sign Up</h2>
+      <h2 className={styles.title}>Registrarse</h2>
+      <input
+        type="text"
+        placeholder="Nombre y Apellido"
+        value={username}
+        onChange={handleUsernameChange}
+        className={styles.input}
+      />
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Mail"
         value={email}
         onChange={handleEmailChange}
         className={styles.input}
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={password}
         onChange={handlePasswordChange}
         className={styles.input}
       />
-      <button type="submit" className={styles.button}>Sign Up</button>
-      <p>¿Ya tiene una cuenta? <a href="./login"><b>Inicie sesión</b></a></p>
+      <input
+        type="password"
+        placeholder="Repetir contraseña"
+        value={password}
+        onChange={handlePasswordChange}
+        className={styles.input}
+      />
+      <button type="submit" className={styles.button}>Registrarse</button>
+      <p>¿Ya tenés una cuenta? <a href="./login"><b>Iniciá sesión</b></a></p>
     </form>
   );
   
