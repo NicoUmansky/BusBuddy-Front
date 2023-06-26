@@ -49,10 +49,10 @@ const LoginForm = () => {
       />
       <button type="submit" className={styles.button}>Iniciar sesión</button>
 
-      <div classname={styles.LoginForm}>
+      <p classname={styles.text}>
         ¿No tenés una cuenta? 
-          <a href="./signup"> <b>Registrate</b></a>
-      </div>
+          <a href="./signup"><b>Registrate</b></a>
+      </p>
     </form>
       
   );

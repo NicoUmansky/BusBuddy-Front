@@ -55,7 +55,12 @@ const SignUpForm = () => {
         className={styles.input}
       />
       <button type="submit" className={styles.button}>Registrarse</button>
-      <p>¿Ya tenés una cuenta? <a href="./login"><b>Iniciá sesión</b></a></p>
+
+      <div classname={styles.title}>
+        ¿Ya tenés una cuenta? 
+          <a href="./login"><b>Iniciá sesión</b>
+          </a>
+      </div>
     </form>
   );
   

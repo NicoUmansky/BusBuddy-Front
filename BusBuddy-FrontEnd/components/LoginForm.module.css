@@ -10,7 +10,14 @@
     display: grid;
     place-items: center;
   }
-  
+  .text{
+    color: black;
+  }
+
+  .underline{
+    color: black;
+    text-decoration: underline;
+  }
   .title {
     font-size: 30px;
     font-weight: bold;

@@ -1,16 +1,24 @@
 import React from "react";
 import styles from "./alertaChofer.module.css";
+import "./MapaEJ/ImgMapaEJ.png"
 
 const AlertaChofer = () => {
     return (
-        <div className={styles.container}>
-        <h2 className={styles.title}>Alerta al chofer</h2>
-        <p className={styles.text}>
-            ¿Querés que el chofer sepa que estás esperando el colectivo?
-        </p>
-        <button type="submit" className={styles.button}>
-            Alertar
-        </button>
-        </div>
+    <div>
+    <img src="./MapaEJ/ImgMapaEJ.png">
+    </img>
+    <form className={styles.container}>
+        <input 
+        type="text"
+        placeholder="Añadir ubicación"
+        className={styles.inputUbi}
+            />
+            <button type="submit" className={styles.button}>
+            Llamar colectivo
+            </button>
+    </form>
+    </div>
     );
     }
+
+export default AlertaChofer;

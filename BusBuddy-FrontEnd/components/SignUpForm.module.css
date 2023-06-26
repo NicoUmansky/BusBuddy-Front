@@ -10,7 +10,9 @@
   display: grid;
   place-items: center;
   }
-
+  .text{
+    color: black;
+  }
   .title {
     font-size: 30px;
     font-weight: bold;
