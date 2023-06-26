@@ -129,4 +129,33 @@ app.get('/paradas/:id', async(req, res) => {
     res.json(parada);
 });
 
+// Rutas de solicitudes
+
+app.post('/CrearSolicitud', async(req, res) => {
+    const solicitud = await prisma.Solicitudes.create({
+        data: req.body,
+    });
+    res.json(solicitud);
+});
+
+app.get('/solicitudes', async(req, res) => {
+    const solicitudes = await prisma.Solicitudes.findMany();
+    res.json({solicitudes});
+});
+
+app.get('/solicitudes/:id', async(req, res) => {
+    const { id } = req.params;
+    const solicitudes = await prisma.Solicitudes.findUnique({
+        where: {
+            id: parseInt(id)
+        },
+        include: {
+            linea: true,
+            usuario: true,
+            parada: true,
+        }
+    });
+    res.json(solicitudes);
+});
+
 module.exports = app;
