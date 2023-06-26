@@ -1,8 +1,6 @@
 import React from 'react';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
-import alertaChofer from '../llamadaColectivo/alertaChofer';
-
 
 
 const SignInPage = () => {
@@ -10,7 +8,6 @@ const SignInPage = () => {
         <div>
           <SignUpForm />
           <LoginForm />
-          <alertaChofer />
         </div>
       );
 };
