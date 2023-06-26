@@ -68,3 +68,17 @@ Content-Type: application/json
 GET http://localhost:3000/parada/3
 
 ###
+
+POST http://localhost:3001/CrearSolicitud
+Content-Type: application/json
+
+{
+    "id_usuario": 2,
+    "id_linea": 2,
+    "paradaInicio": 1,
+    "paradaDestino": 2
+}
+
+###
+
+GET http://localhost:3001/solicitudes/1
