@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./alertaChofer.module.css";
-import "./MapaEJ/ImgMapaEJ.png"
+
 
 const AlertaChofer = () => {
     return (
