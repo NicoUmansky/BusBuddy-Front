@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SignUpForm.module.css';
+import { Result } from 'postcss';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -18,8 +19,26 @@ const SignUpForm = () => {
     setUsername(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+
+  // let form = document.querySelector("form");
+  // form.addEventListener('submit', handleSubmit)
+
+ 
+
+  function handleSubmit(e){
     e.preventDefault();
+    let formData = new FormData(form);
+    let data = Object.fromEntries(formData);
+    let jsonData = JSON.stringify(data);
+    fetch('http://localhost:3001/CreateUser',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: jsonData
+    }).then(res => res.json())
+    .then(result => console.log(result.data))
+    .catch(err => console.log(err))
     // Handle sign-up logic here
   };
 
@@ -58,7 +77,7 @@ const SignUpForm = () => {
 
       <div classname={styles.title}>
         ¿Ya tenés una cuenta? 
-          <a href="./login"><b>Iniciá sesión</b>
+          <a href="./login"><b> Iniciá sesión</b>
           </a>
       </div>
     </form>

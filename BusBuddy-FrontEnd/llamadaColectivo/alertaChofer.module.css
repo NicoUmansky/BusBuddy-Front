@@ -30,6 +30,11 @@
     align-items: center;
   }
   
+  .mapa{
+    height: 100vh;
+    width: 100vw;
+  }
+
   .inputUbi {
     height: 50px;
     position: absolute;
