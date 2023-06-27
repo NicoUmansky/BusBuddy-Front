@@ -13,7 +13,7 @@ const AlertaChofer = () => {
         placeholder="Añadir ubicación"
         className={styles.inputUbi}
             />
-            <button type="submit" className={styles.button}>
+               <button type="submit" className={styles.button}>
             Llamar colectivo
             </button>
     </form>
