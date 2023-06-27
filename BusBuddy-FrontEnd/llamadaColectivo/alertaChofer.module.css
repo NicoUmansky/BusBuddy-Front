@@ -5,19 +5,23 @@
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 90vh;
+    /* height: 90vh;
     width: 100vw; 
     display: grid;
-    place-items: center;
+    place-items: center; */
+    height: 40vh;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
   }
+
   .text{
     color: black;
   }
-
-  .underline{
-    color: black;
-    text-decoration: underline;
-  }
+  
   .title {
     font-size: 30px;
     font-weight: bold;
@@ -26,20 +30,26 @@
     align-items: center;
   }
   
-  .input {
+  .inputUbi {
     height: 50px;
-    width: 100%;
+    position: absolute;
+    bottom: 70px;
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 4px;
     box-sizing: border-box;
     color: black;
   }
   
   .button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 20px;
-    width: 100%;
+    width: 90%;
     padding: 10px;
     background-color: grey;
     color: #fff;

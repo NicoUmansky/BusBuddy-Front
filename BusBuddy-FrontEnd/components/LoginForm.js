@@ -4,6 +4,7 @@ import styles from './LoginForm.module.css';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,6 +14,10 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here
@@ -20,27 +25,34 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
-      <h2 className={styles.title}>Login</h2>
+      <h2 className={styles.title}>Iniciar Sesión</h2>
+      <input
+        type="text"
+        placeholder="Nombre y Apellido"
+        value={username}
+        onChange={handleUsernameChange}
+        className={styles.input}
+      />
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Mail"
         value={email}
         onChange={handleEmailChange}
         className={styles.input}
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={password}
         onChange={handlePasswordChange}
         className={styles.input}
       />
-      <button type="submit" className={styles.button}>Login</button>
+      <button type="submit" className={styles.button}>Iniciar sesión</button>
 
-      <div classname={styles.LoginForm}>
-        ¿No tiene una cuenta? 
-          <a href="./signup"> <b>Registrese</b></a>
-      </div>
+      <p classname={styles.text}>
+        ¿No tenés una cuenta? 
+          <a href="./signup"><b>Registrate</b></a>
+      </p>
     </form>
       
   );
