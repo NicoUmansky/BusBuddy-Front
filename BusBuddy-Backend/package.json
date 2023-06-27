@@ -1,11 +1,13 @@
 {
   "name": "busbuddy---backend",
   "version": "1.0.0",
+  
   "description": "",
   "main": "src/app.js",
   "scripts": {
     "dev": "npx nodemon app.js"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -3,15 +3,8 @@ const express = require('express');
 const mysql = require('mysql2')
 
 const app = express();
-
+const {getUser} = require('./database.js')
 require('dotenv').config()
- const connection = mysql.createConnection(process.env.DATABASE_URL)
-// console.log('Connected to PlanetScale!')
-// connection.end()
-
-const { PrismaClient } = require('@prisma/client');
-const { parse } = require('dotenv');
-const prisma = new PrismaClient()
 
 app.use(express.json());
 app.use(function(req, res, next) {
@@ -32,15 +25,11 @@ app.get('/users', async(req, res) => {
 });
 
 app.get('/user/:id', async (req, res) => {
-    const { id } = req.params;
-    const user = await prisma.Usuarios.findUnique({
-        where: {
-            id: parseInt(id)
-        }
-    });
+    const  id = parseInt(req.params.id);
+    const user = getUser(id);
     res.json(user);
-    
-});
+})
+
 
 app.put('/user/:id', async (req, res) => {
     const { id } = req.params;
