@@ -54,7 +54,7 @@ app.put('/user/:id', async (req, res) => {
 });
 
 
-app.post('/user', async (req, res) => {
+app.post('/CreateUser', async (req, res) => {
     const user = await prisma.Usuarios.create({
         data: req.body
     });
