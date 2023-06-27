@@ -1,9 +1,10 @@
-const { Prisma } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient()
 const express = require('express');
 const mysql = require('mysql2')
 
 const app = express();
-const {getUser} = require('./database.js')
+const {getUser, createUser, getRequest, createRequest} = require('./database.js')
 require('dotenv').config()
 
 app.use(express.json());
@@ -25,10 +26,11 @@ app.get('/users', async(req, res) => {
 });
 
 app.get('/user/:id', async (req, res) => {
-    const  id = parseInt(req.params.id);
-    const user = getUser(id);
-    res.json(user);
+    const  id = req.params.id;
+    const user = getUser(id).then((user) => {
+        res.json(user);
 })
+});
 
 
 app.put('/user/:id', async (req, res) => {
@@ -44,10 +46,9 @@ app.put('/user/:id', async (req, res) => {
 
 
 app.post('/CreateUser', async (req, res) => {
-    const user = await prisma.Usuarios.create({
-        data: req.body
-    });
-    res.json(user);
+    const user = await createUser(req.body).then((user) => {    
+            res.json(user);
+    })
 });
 
 app.delete('/user/:id', async (req, res) => {
@@ -63,7 +64,7 @@ app.delete('/user/:id', async (req, res) => {
 // Rutas de lineas
 
 app.get('/lineas', async(req, res) => {
-    const lineas = await prisma.Lineas.findMany(
+    const lineas = await Prisma.Lineas.findMany(
         {
             include: {
                 colectivos: true,
@@ -134,17 +135,9 @@ app.get('/solicitudes', async(req, res) => {
 
 app.get('/solicitudes/:id', async(req, res) => {
     const { id } = req.params;
-    const solicitudes = await prisma.Solicitudes.findUnique({
-        where: {
-            id: parseInt(id)
-        },
-        include: {
-            linea: true,
-            usuario: true,
-            parada: true,
-        }
-    });
+    const solicitudes = getRequest(id).then((solicitudes) => {
     res.json(solicitudes);
+})
 });
 
 module.exports = app;

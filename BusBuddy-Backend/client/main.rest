@@ -1,11 +1,11 @@
 # GET http://localhost:3000/
 
-POST http://localhost:3001/user
+POST http://localhost:3001/CreateUser
 Content-Type: application/json
 
 {
-    "nombreapellido": "Benjamin Chejtman",
-    "email": "benjichej@gmail.com",
+    "nombreapellido": "Nacho Vigilante",
+    "email": "nachovigi@gmail.com",
     "password": "123456"
 }
 
@@ -15,7 +15,7 @@ GET http://localhost:3001/users
 
 ###
 
-GET http://localhost:3001/user/1
+GET http://localhost:3001/user/2
 
 ###
 
@@ -38,7 +38,7 @@ GET http://localhost:3001/lineas
 
 ###
 
-GET http://localhost:3001/lineas/2
+GET http://localhost:3001/lineas/1
 
 ###
 
@@ -52,13 +52,13 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3001/paradas/2
+POST http://localhost:3001/paradas/1
 Content-Type: application/json
 
  {
       "latitud": "-34.616193",
       "longitud": "-58.382472",
-      "id_linea": 2,
+      "id_linea": 1,
       "direccion": "Av. Congreso"
  }
 
@@ -73,12 +73,12 @@ POST http://localhost:3001/CrearSolicitud
 Content-Type: application/json
 
 {
-    "id_usuario": 2,
-    "id_linea": 2,
+    "id_usuario": 8,
+    "id_linea": 1,
     "paradaInicio": 1,
     "paradaDestino": 2
 }
 
 ###
 
-GET http://localhost:3001/solicitudes/1
+GET http://localhost:3001/solicitudes/2
