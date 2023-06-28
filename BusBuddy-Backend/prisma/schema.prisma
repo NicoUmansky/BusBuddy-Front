@@ -43,11 +43,11 @@ model Solicitudes {
   id_linea      Int
   paradaDestino Int
   paradaInicio  Int
-  parada        Paradas  @relation(fields: [paradaDestino], references: [id])
+  parada        Paradas  @relation(fields: [paradaInicio], references: [id])
   usuario       Usuarios @relation(fields: [id_usuario], references: [id])
   linea         Lineas   @relation(fields: [id_linea], references: [id])
 
-  @@index([paradaDestino], map: "parada")
+  @@index([paradaInicio], map: "parada")
   @@index([id_usuario], map: "usuario")
   @@index([id_linea], map: "linea")
 }

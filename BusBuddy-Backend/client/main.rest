@@ -4,8 +4,8 @@ POST http://localhost:3001/CreateUser
 Content-Type: application/json
 
 {
-    "nombreapellido": "Nacho Vigilante",
-    "email": "nachovigi@gmail.com",
+    "nombreapellido": "Nahue Hernandez",
+    "email": "nahue@gmail.com",
     "password": "123456"
 }
 

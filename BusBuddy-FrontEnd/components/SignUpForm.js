@@ -27,19 +27,21 @@ const SignUpForm = () => {
 
   function handleSubmit(e){
     e.preventDefault();
-    let formData = new FormData(form);
-    let data = Object.fromEntries(formData);
-    let jsonData = JSON.stringify(data);
-    fetch('http://localhost:3001/CreateUser',{
-      method: 'POST',
+    const newUser = fetch("http://localhost:3001/CreateUser", {
+      method: "POST",
+      body: JSON.stringify({
+        nombreapellido: "Mica Viegas",
+        email: "roby@outlook.com",
+        password: "1234"
+      }),
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: jsonData
-    }).then(res => res.json())
-    .then(result => console.log(result.data))
-    .catch(err => console.log(err))
-    // Handle sign-up logic here
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(response => console.log(response)); 
+
   };
 
   return (
