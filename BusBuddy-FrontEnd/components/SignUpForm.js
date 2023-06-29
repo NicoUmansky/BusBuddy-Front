@@ -43,7 +43,10 @@ const SignUpForm = () => {
         .then(response => response.json())
         .then(response => console.log(response));
     }   
+    else{
+      alert("Las contraseñas no coinciden");
     }
+  }
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2 className={styles.title}>Registrarse</h2>

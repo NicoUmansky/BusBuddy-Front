@@ -4,7 +4,7 @@ import styles from './LoginForm.module.css';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -14,28 +14,30 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-  };
+
+    const findUser = fetch("http://localhost:3001/FindUser", {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
+    };
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2 className={styles.title}>Iniciar Sesión</h2>
       <input
-        type="text"
-        placeholder="Nombre y Apellido"
-        value={username}
-        onChange={handleUsernameChange}
-        className={styles.input}
-      />
-      <input
         type="email"
-        placeholder="Mail"
+        placeholder="Correo electrónico"
         value={email}
         onChange={handleEmailChange}
         className={styles.input}
@@ -47,14 +49,14 @@ const LoginForm = () => {
         onChange={handlePasswordChange}
         className={styles.input}
       />
-      <button type="submit" className={styles.button}>Iniciar sesión</button>
-
-      <p classname={styles.text}>
-        ¿No tenés una cuenta? 
-          <a href="./signup"><b>Registrate</b></a>
+      {error && <p className={styles.error}>{error}</p>}
+      <button type="submit" className={styles.button}>
+        Iniciar sesión
+      </button>
+      <p className={styles.text}>
+        ¿No tienes una cuenta? <a href="./signup"><b>Regístrate</b></a>
       </p>
     </form>
-      
   );
 };
 

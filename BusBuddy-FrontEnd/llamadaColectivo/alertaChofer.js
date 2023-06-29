@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./alertaChofer.module.css";
 
-
 const AlertaChofer = () => {
     return (
     <div>

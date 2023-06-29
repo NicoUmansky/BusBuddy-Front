@@ -25,6 +25,19 @@ app.get('/users', async(req, res) => {
     res.json({users});
 });
 
+app.post('/FindUser', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await prisma.usuarios.count({
+      where: {
+        email: email,
+        password: password
+          }
+    });
+    
+    res.json(user);
+    
+  });
+
 app.get('/user/:id', async (req, res) => {
     const  id = req.params.id;
     const user = getUser(id).then((user) => {
