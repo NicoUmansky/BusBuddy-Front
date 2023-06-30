@@ -27,14 +27,14 @@ app.get('/users', async(req, res) => {
 
 app.post('/FindUser', async (req, res) => {
     const { email, password } = req.body;
-    const user = await prisma.usuarios.count({
+    const user = await prisma.usuarios.findFirst({
       where: {
         email: email,
         password: password
-          }
-    });
-    
+        }
+    }); 
     res.json(user);
+
     
   });
 
@@ -60,7 +60,14 @@ app.put('/user/:id', async (req, res) => {
 
 app.post('/CreateUser', async (req, res) => {
     const user = await createUser(req.body).then((user) => {    
-            res.json(user);
+        if (user){
+                res.json(user);
+                
+        }
+        else{
+            res.json({msg: "User not created"});
+        }
+
     })
 });
 

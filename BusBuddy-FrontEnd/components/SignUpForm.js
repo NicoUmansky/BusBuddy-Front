@@ -42,6 +42,7 @@ const SignUpForm = () => {
       })
         .then(response => response.json())
         .then(response => console.log(response));
+        window.location.href = '/mainPage';
     }   
     else{
       alert("Las contraseñas no coinciden");

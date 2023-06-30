@@ -29,7 +29,9 @@ const LoginForm = () => {
       }
     })
       .then(response => response.json())
-      .then(response => console.log(response));
+      .then(response => console.log(response))
+      .then(response => { window.location.href = '/mainPage';
+      });
     };
 
   return (

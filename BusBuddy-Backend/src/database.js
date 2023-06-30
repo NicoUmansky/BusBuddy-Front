@@ -21,10 +21,20 @@ async function getUser(id){
 }
 
 async function createUser(user){
+    try{
     const newUser = await prisma.Usuarios.create({
         data: user
     });
-    return newUser
+    if (newUser){
+        console.log('User created')
+        return newUser
+    }
+}
+    catch (e)
+    {
+        console.log('User not created:' + e)
+    }
+    
 }
 
 async function getRequest(id){
