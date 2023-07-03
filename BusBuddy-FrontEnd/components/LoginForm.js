@@ -56,7 +56,7 @@ const LoginForm = () => {
         Iniciar sesión
       </button>
       <p className={styles.text}>
-        ¿No tienes una cuenta? <a href="./signup"><b>Regístrate</b></a>
+        ¿No tenés una cuenta? <a href="./signup"><b>Registrate</b></a>
       </p>
     </form>
   );
