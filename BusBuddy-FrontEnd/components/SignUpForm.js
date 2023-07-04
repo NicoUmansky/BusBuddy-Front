@@ -7,6 +7,11 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [nombreapellido, setUsername] = useState('');
   const[RepeatPassword, setRepeatPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleError = (e) => {
+    setError(e);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,7 +50,7 @@ const SignUpForm = () => {
         window.location.href = '/mainPage';
     }   
     else{
-      alert("Las contraseñas no coinciden");
+      handleError('Las contraseñas no coinciden');
     }
   }
   return (
@@ -83,6 +88,7 @@ const SignUpForm = () => {
         className={styles.input}
         required
       />
+      <p className={styles.error}>{error}</p>
       <button type="submit" className={styles.button}><b>Registrarse</b></button>
 
       <div className={styles.text}>
