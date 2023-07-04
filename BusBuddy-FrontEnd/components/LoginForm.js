@@ -36,7 +36,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
-      <h2 className={styles.title}>Iniciar Sesión</h2>
+      <h2 className={styles.title}><b>Iniciar Sesión</b></h2>
       <input
         type="email"
         placeholder="Correo electrónico"
@@ -52,8 +52,7 @@ const LoginForm = () => {
         className={styles.input}
       />
       {error && <p className={styles.error}>{error}</p>}
-      <button type="submit" className={styles.button}>
-        Iniciar sesión
+      <button type="submit" className={styles.button}><b>Iniciar sesión</b> 
       </button>
       <p className={styles.text}>
         ¿No tenés una cuenta? <a href="./signup"><b>Registrate</b></a>

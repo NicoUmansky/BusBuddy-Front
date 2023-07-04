@@ -50,7 +50,7 @@ const SignUpForm = () => {
   }
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
-      <h2 className={styles.title}>Registrarse</h2>
+      <h2 className={styles.title}><b>Registrarse</b></h2>
       <input
         type="text"
         placeholder="Nombre y Apellido"
@@ -83,7 +83,7 @@ const SignUpForm = () => {
         className={styles.input}
         required
       />
-      <button type="submit" className={styles.button}>Registrarse</button>
+      <button type="submit" className={styles.button}><b>Registrarse</b></button>
 
       <div className={styles.text}>
         ¿Ya tenés una cuenta?
