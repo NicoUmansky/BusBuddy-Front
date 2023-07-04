@@ -15,6 +15,12 @@
     font-size: 20px;
   }
 
+  .error{
+    color: rgb(237, 13, 13);
+    font-size: 20px;
+  }
+
+
   .underline{
     color: black;
     text-decoration: underline;

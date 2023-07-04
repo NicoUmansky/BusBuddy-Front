@@ -10,6 +10,10 @@ const LoginForm = () => {
     setEmail(e.target.value);
   };
 
+  const handleError = (e) => {
+    setError(e);
+  };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -29,8 +33,14 @@ const LoginForm = () => {
       }
     })
       .then(response => response.json())
-      .then(response => console.log(response))
-      .then(response => { window.location.href = '/mainPage';
+      .then(response => {
+        if(response == null){
+          handleError('Usuario o contraseña incorrectos');
+          console.log(error);
+            // alert('Usuario o contraseña incorrectos'); 
+        }else{
+            window.location.href = '/mainPage';
+        }
       });
     };
 
@@ -51,7 +61,7 @@ const LoginForm = () => {
         onChange={handlePasswordChange}
         className={styles.input}
       />
-      {error && <p className={styles.error}>{error}</p>}
+      <p className={styles.error}>{error}</p>
       <button type="submit" className={styles.button}><b>Iniciar sesión</b> 
       </button>
       <p className={styles.text}>
