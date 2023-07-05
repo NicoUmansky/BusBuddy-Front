@@ -22,12 +22,6 @@
     align-items: center;
   }
   
-
-  .error{
-    color: rgb(237, 13, 13);
-    font-size: 20px;
-  }
-  
   .input {
     height: 50px;
     width: 100%;
