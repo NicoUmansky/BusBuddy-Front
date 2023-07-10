@@ -40,7 +40,8 @@ const LoginForm = () => {
             // alert('Usuario o contraseña incorrectos'); 
         }else{
             window.location.href = '/mainPage';
-        }
+            console.log(response.id);
+          }
       });
     };
 

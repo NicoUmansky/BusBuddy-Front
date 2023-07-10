@@ -2,13 +2,14 @@ import React from "react";
 import styles from "./alertaChofer.module.css";
 
 const PantallaPrincipal = () => {
-  const getLocation = () => {
+  const getLocation = (e) => {
+    e.preventDefault();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log(position.coords.latitude, position.coords.longitude);
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        alert("Ubicación actual: " + position.coords.latitude + ", " + position.coords.longitude);
+        // alert("Ubicación actual: " + position.coords.latitude + ", " + position.coords.longitude);
       });
     }
     else {
