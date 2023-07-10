@@ -19,7 +19,11 @@
   }
 
   .text{
-    color: black;
+    color: white; 
+    font-size: 30px;
+    position: absolute;
+    bottom: 52%;
+    left: 46%;
   }
   
   .title {
@@ -37,6 +41,7 @@
 
   .inputUbi {
     height: 50px;
+    font-size: 20px;
     position: absolute;
     bottom: 70px;
     width: 90%;
@@ -71,3 +76,15 @@
     background-color: grey;
   }
   
+  .btnUbiActual{
+    position: absolute;
+    height: 50px;
+    font-size: 20px;
+    width: 90%;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
