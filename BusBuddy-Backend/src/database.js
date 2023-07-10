@@ -1,6 +1,8 @@
 const mysql = require('mysql2');
 
 require('dotenv').config()
+// import browserEnv from 'browser-env';
+require('browser-env')(['window', 'document', 'navigator']);
 
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
@@ -58,6 +60,7 @@ async function createRequest(request){
 
     return newRequest
 }
+
 
 
 module.exports = { getUser, createUser, getRequest, createRequest}

@@ -4,7 +4,7 @@ const express = require('express');
 const mysql = require('mysql2')
 
 const app = express();
-const {getUser, createUser, getRequest, createRequest} = require('./database.js')
+const {getUser, getLocation, createUser, getRequest, createRequest} = require('./database.js')
 require('dotenv').config()
 
 app.use(express.json());
@@ -34,9 +34,24 @@ app.post('/FindUser', async (req, res) => {
         }
     }); 
     res.json(user);
-
-    
   });
+
+  app.get('/findLocation/:latlng', async (req, res) => {
+    const { latlng } = req.params;
+    const location = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlng + "&key=" + process.env.API_KEY;
+    
+    fetch(location)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        res.json(data.results[0].formatted_address);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+      });
+  });
+  
 
 app.get('/user/:id', async (req, res) => {
     const  id = req.params.id;
@@ -44,6 +59,8 @@ app.get('/user/:id', async (req, res) => {
         res.json(user);
 })
 });
+
+
 
 
 app.put('/user/:id', async (req, res) => {
