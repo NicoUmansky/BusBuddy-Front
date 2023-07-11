@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from 'react';
 import styles from "./alertaChofer.module.css";
 
 
 const PantallaPrincipal = () => {
+  const [address, setAddress] = useState("");
+
   const getLocation = (e) => {
     e.preventDefault();
     if (navigator.geolocation) {
@@ -10,18 +12,21 @@ const PantallaPrincipal = () => {
         console.log(position.coords.latitude, position.coords.longitude);
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        
+  
         fetch("http://localhost:3001/findLocation/" + latitude + "," + longitude)
           .then(response => response.json())
-          .then(response => console.log(String(response).split(",")[0]))
+          .then(response => {
+            const address = String(response).split(",")[0];
+            setAddress(address);
+            document.getElementById("inputUbi").setAttribute("value", address);
+          });
       });
-    }
+    } 
     else {
       alert("Geolocation is not supported by this browser.");
     }
-
   };
-
+  
   return (
     <div>
       <iframe
@@ -32,13 +37,16 @@ const PantallaPrincipal = () => {
         <input
           type="text"
           placeholder="Añadir ubicación"
+          onChange={(e) => setAddress(e.target.value)}
+          value={address}
+          id='inputUbi'
           className={styles.inputUbi}
         />
-        <button className={styles.btnUbiActual} onClick={getLocation}><b>Ubicación Actual</b></button>
+        <button id="btnUbiActual" className={styles.btnUbiActual} onClick={getLocation}><b>Ubicación Actual</b></button>
         <label className={styles.text}> ó </label>
         <button type="submit" className={styles.button}><a href="./alertaChofer">Siguiente</a></button>
       </form>
     </div>
   );
-}
+};
 export default PantallaPrincipal

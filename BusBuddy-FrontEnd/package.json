@@ -17,6 +17,7 @@
     "canvas": "^2.11.2",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
+    "google": "^2.1.0",
     "net": "^1.0.2",
     "next": "^13.4.7",
     "postcss": "8.4.24",
