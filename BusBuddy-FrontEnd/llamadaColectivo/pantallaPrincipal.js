@@ -9,7 +9,7 @@ const PantallaPrincipal = () => {
     e.preventDefault();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
+        // console.log(position.coords.latitude, position.coords.longitude);
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
   
@@ -18,8 +18,10 @@ const PantallaPrincipal = () => {
           .then(response => {
             const address = String(response).split(",")[0];
             setAddress(address);
-            document.getElementById("inputUbi").setAttribute("value", address);
+            document.getElementById("inputUbi").setAttribute("defaultValue", address);
+            const map = document.querySelector("iframe").setAttribute("src", "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed");
           });
+        
       });
     } 
     else {
