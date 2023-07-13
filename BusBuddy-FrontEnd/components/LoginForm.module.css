@@ -12,7 +12,9 @@
   }
   .text{
     color: white;
-    font-size: 20px;
+    font-size: 120%;
+    align-items: center;
+    display: grid;
   }
 
   .error{
@@ -24,8 +26,9 @@
     color: black;
     text-decoration: underline;
   }
+
   .title {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 20px;
     color: #8208CB;
@@ -42,11 +45,19 @@
     box-sizing: border-box;
     color: black;
     background-color: #C7C3C3;
+    display: flex;
+    margin-top: 25px;
+  }
+
+  input.input::placeholder {
+    color: rgb(66, 63, 63);
+    font-weight: bold;
+    opacity: 0.5;
   }
   
   .button {
     font-size: 25px;
-    height: 50%;
+    height: 60%;
     width: 80%;
     padding: 10px;
     background-color: #8208CB;
@@ -54,6 +65,7 @@
     border: none;
     border-radius: 12px;
     cursor: pointer;
+    margin-bottom: 10px;
   }
   
   .button:hover {
