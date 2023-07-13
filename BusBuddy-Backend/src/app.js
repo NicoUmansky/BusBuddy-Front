@@ -79,7 +79,6 @@ app.post('/CreateUser', async (req, res) => {
     const user = await createUser(req.body).then((user) => {    
         if (user){
                 res.json(user);
-                
         }
         else{
             res.json({msg: "User not created"});
