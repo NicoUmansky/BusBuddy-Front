@@ -66,8 +66,8 @@ const LoginForm = () => {
       <button type="submit" className={styles.button}><b>Iniciar sesión</b> 
       </button>
       <p className={styles.text}>
-        ¿No tenés una cuenta? <a href="./signup"><b>Registrate</b></a>
-      </p>
+        ¿No tenés una cuenta?</p>
+      <a href="./signup" className={styles.lblRegistrate}><b>Registrate</b></a>
     </form>
   );
 };

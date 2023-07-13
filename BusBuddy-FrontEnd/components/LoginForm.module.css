@@ -11,10 +11,19 @@
     place-items: center;
   }
   .text{
+    margin-bottom: -10%;
     color: white;
-    font-size: 120%;
+    font-size: 140%;
     align-items: center;
     display: grid;
+  }
+
+  .lblRegistrate{
+    color: white;
+    font-size: 140%;
+    align-items: center;
+    display: flex;
+    margin-bottom: 15%;
   }
 
   .error{
