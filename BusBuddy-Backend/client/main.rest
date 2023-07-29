@@ -73,6 +73,10 @@ GET http://localhost:3001/findLocation/-34.616193,-58.382472
 
 ###
 
+GET http://localhost:3001/Findlinea/68
+
+###
+
 POST http://localhost:3001/CrearSolicitud
 Content-Type: application/json
 

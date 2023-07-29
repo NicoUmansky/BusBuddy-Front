@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
+import { google } from "google-maps";
+
 
 const PantallaPrincipal = () => {
   const [address, setAddress] = useState("");
@@ -7,18 +9,46 @@ const PantallaPrincipal = () => {
   const [showDestination, setShowDestination] = useState(false);
   const [showOrigin, setShowOrigin] = useState(true);
 
+  const mapContainerRef = useRef(null);
+  let map;
+  let googleMapsInitialized = false; // Flag to indicate if the Google Maps API is loaded
+  const key = process.env.NEXT_PUBLIC_API_KEY;
+
   useEffect(() => {
     initAutoComplete("inputUbi", setAddress);
     initAutoComplete("inputDestino", setDestination);
+
+    // Load Google Maps API asynchronously only if not already initialized
+    if (!googleMapsInitialized) {
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        googleMapsInitialized = true;
+        initializeMap();
+      };
+      document.body.appendChild(script);
+    } else {
+      initializeMap();
+    }
   }, []);
 
+  const initializeMap = () => {
+    if (!map) {
+      map = new window.google.maps.Map(mapContainerRef.current, {
+        center: { lat: -34.5702515, lng: -58.4533877 },
+        zoom: 13,
+      });
+    }
+  };
   const initAutoComplete = (inputId, setAddressCallback) => {
     if (google && google.maps) {
       const input = document.getElementById(inputId);
       const options = {
         componentRestrictions: { country: "ar" }
       };
-      const autocomplete = new google.maps.places.Autocomplete(input, options);
+      const autocomplete = new window.google.maps.places.Autocomplete(input, options);
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
@@ -54,7 +84,48 @@ const PantallaPrincipal = () => {
   const handleCallColectivo = (e) => {
     e.preventDefault();
     const linea = document.getElementById("inputLinea").value;
-    console.log(address, destination, linea);
+    fetch("http://localhost:3001/Findlinea/"  + linea)
+    .then(response => response.json())
+    .then(response => {
+      var idlinea = response;
+      const newSoli = fetch("http://localhost:3001/CrearSolicitud", {
+        method: "POST",
+        body: JSON.stringify({
+          id_linea: idlinea,
+          direccionOrigen: address,
+          direccionDestino: destination,
+        }),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      })      
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        const newGuide = new window.google.maps.DirectionsService();
+        const newRenderer = new window.google.maps.DirectionsRenderer();
+        newRenderer.setMap(map);
+        newGuide.route(
+          {
+            origin: address,
+            destination: destination,
+            travelMode: window.google.maps.TravelMode.TRANSIT,
+            transitOptions: {
+              modes: [window.google.maps.TransitMode.BUS],
+            }
+          },
+          (response, status) => {
+          {console.log(response)}
+            if (status === "OK") {
+              newRenderer.setDirections(response);
+            } else {
+              window.alert("Directions request failed due to " + status);
+            }
+          }
+        );
+      });
+});
   };
 
   const getLocation = (e) => {
@@ -69,20 +140,17 @@ const PantallaPrincipal = () => {
           .then(response => {
             const address = String(response).split(",")[0];
             setAddress(address);
-            const map = document.querySelector("iframe").setAttribute("src", "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed");
+            // const map = document.querySelector("iframe").setAttribute("src", "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed");
           });
       });
     } else {
       alert("Geolocation is not supported by this browser.");
     }
   };
-
-  return (
+return (
     <div>
-      <iframe
-        className={styles.mapa}
-        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d64335.07666590948!2d-58.44772896163354!3d-34.580385620490944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sGalp%C3%B3n%20de%20Ropa!5e0!3m2!1ses!2sar!4v1661524962941!5m2!1ses!2sar"
-      ></iframe>
+      <div ref={mapContainerRef} className={styles.mapContainer} />
+
       <form className={styles.container}>
         {showOrigin && (
           <div>

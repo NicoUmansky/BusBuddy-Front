@@ -125,6 +125,16 @@ app.get('/lineas/:id', async (req, res) => {
     res.json(linea);
 });
 
+app.get('/Findlinea/:nro', async (req, res) => {
+    const { nro } = req.params;
+    const lineas = await prisma.Lineas.findUnique({
+        where: {
+            linea: nro
+        }        
+    });
+    res.json(lineas.id);
+});
+
 // Rutas de Colectivos
 
 app.post('/colectivos/:id', async(req, res) => {
@@ -157,11 +167,11 @@ app.get('/paradas/:id', async(req, res) => {
 
 // Rutas de solicitudes
 
-app.post('/CrearSolicitud', async(req, res) => {
+app.post('/CrearSolicitud/', async(req, res) => {
     const solicitud = await prisma.Solicitudes.create({
         data: req.body,
     });
-    res.json(solicitud);
+    res.json(solicitud.id);
 });
 
 app.get('/solicitudes', async(req, res) => {
