@@ -116,8 +116,12 @@ const PantallaPrincipal = () => {
             }
           },
           (response, status) => {
-          {console.log(response)}
             if (status === "OK") {
+              console.log(response.routes[0].legs[0].departure_time.text)
+              console.log(response.routes[0].legs[0].arrival_time.text)
+              console.log(response.routes[0].legs[0].distance.text)
+              console.log(response.routes[0].legs[0].duration.text)
+
               newRenderer.setDirections(response);
             } else {
               window.alert("Directions request failed due to " + status);
@@ -140,7 +144,6 @@ const PantallaPrincipal = () => {
           .then(response => {
             const address = String(response).split(",")[0];
             setAddress(address);
-            // const map = document.querySelector("iframe").setAttribute("src", "https://maps.google.com/maps?q=" + address + "&t=&z=13&ie=UTF8&iwloc=&output=embed");
           });
       });
     } else {

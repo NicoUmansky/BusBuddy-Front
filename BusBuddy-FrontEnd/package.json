@@ -20,6 +20,7 @@
     "eslint-config-next": "13.4.4",
     "google": "^2.1.0",
     "google-maps": "^4.3.3",
+    "iron-session": "^6.3.1",
     "net": "^1.0.2",
     "next": "^13.4.7",
     "postcss": "8.4.24",
