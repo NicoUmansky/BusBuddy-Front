@@ -8,6 +8,8 @@ const PantallaPrincipal = () => {
   const [destination, setDestination] = useState("");
   const [showDestination, setShowDestination] = useState(false);
   const [showOrigin, setShowOrigin] = useState(true);
+  const [directionsRenderer, setDirectionsRenderer] = useState(null);
+
 
   const mapContainerRef = useRef(null);
   let map;
@@ -26,11 +28,10 @@ const PantallaPrincipal = () => {
       script.defer = true;
       script.onload = () => {
         googleMapsInitialized = true;
+        console.log("Google Maps initialized");
         initializeMap();
       };
       document.body.appendChild(script);
-    } else {
-      initializeMap();
     }
   }, []);
 
@@ -80,11 +81,10 @@ const PantallaPrincipal = () => {
     }
 
   };
-
-  const handleCallColectivo = (e) => {
-    e.preventDefault();
-    const linea = document.getElementById("inputLinea").value;
-    fetch("http://localhost:3001/Findlinea/"  + linea)
+const handleCallColectivo = (e) => {
+  e.preventDefault();
+  const linea = document.getElementById("inputLinea").value;
+  fetch("http://localhost:3001/Findlinea/" + linea)
     .then(response => response.json())
     .then(response => {
       var idlinea = response;
@@ -99,38 +99,43 @@ const PantallaPrincipal = () => {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json"
         }
-      })      
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        const newGuide = new window.google.maps.DirectionsService();
-        const newRenderer = new window.google.maps.DirectionsRenderer();
-        newRenderer.setMap(map);
-        newGuide.route(
-          {
-            origin: address,
-            destination: destination,
-            travelMode: window.google.maps.TravelMode.TRANSIT,
-            transitOptions: {
-              modes: [window.google.maps.TransitMode.BUS],
-            }
-          },
-          (response, status) => {
-            if (status === "OK") {
-              console.log(response.routes[0].legs[0].departure_time.text)
-              console.log(response.routes[0].legs[0].arrival_time.text)
-              console.log(response.routes[0].legs[0].distance.text)
-              console.log(response.routes[0].legs[0].duration.text)
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+          const newGuide = new window.google.maps.DirectionsService();
+          const newRenderer = new window.google.maps.DirectionsRenderer();
+          newRenderer.setMap(map);
+          newGuide.route(
+            {
+              origin: address,
+              destination: destination,
+              travelMode: window.google.maps.TravelMode.TRANSIT,
+              transitOptions: {
+                modes: [window.google.maps.TransitMode.BUS],
+              },
+              provideRouteAlternatives: true,
+            },
+            (response, status) => {
+              if (status === "OK") {
+                  
+                response.routes.forEach((route) => {
+                  console.log("Hora de salida: " + route.legs[0].departure_time.text + " Hora de llegada: " + route.legs[0].arrival_time.text +  " Duracion: " + route.legs[0].duration.text + " Distancia: " + route.legs[0].distance.text);
 
-              newRenderer.setDirections(response);
-            } else {
-              window.alert("Directions request failed due to " + status);
+                });     
+                  newRenderer.setDirections(response);
+                  setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
+                } 
+                else {
+                window.alert("Directions request failed due to " + status);
+                console.log(directionsRenderer);
+              }
             }
-          }
-        );
-      });
-});
-  };
+          );
+        });
+    });
+};
+
 
   const getLocation = (e) => {
     e.preventDefault();

@@ -38,7 +38,10 @@ export default function Login() {
 
             }
             else{
-              alert("Usuario logueado");
+              router.push({
+                pathname: '/mainPage',
+                query: { id: response.id }
+              });
             } 
           });
 
