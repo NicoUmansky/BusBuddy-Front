@@ -16,11 +16,12 @@
     font-size: 140%;
     align-items: center;
     display: grid;
+    font-size: 120%;
   }
 
   .lblRegistrate{
     color: white;
-    font-size: 140%;
+    font-size: 120%;
     align-items: center;
     display: flex;
     margin-bottom: 15%;
