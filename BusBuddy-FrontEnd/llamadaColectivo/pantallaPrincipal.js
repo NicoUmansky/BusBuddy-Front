@@ -119,9 +119,12 @@ const handleCallColectivo = (e) => {
             (response, status) => {
               if (status === "OK") {
                   
-                response.routes.forEach((route) => {
-                  console.log("Hora de salida: " + route.legs[0].departure_time.text + " Hora de llegada: " + route.legs[0].arrival_time.text +  " Duracion: " + route.legs[0].duration.text + " Distancia: " + route.legs[0].distance.text);
-
+                // response.routes.forEach((route) => {
+                  console.log("Hora de salida: " + response.routes[0].legs[0].departure_time.text + " Hora de llegada: " + response.routes[0].legs[0].arrival_time.text +  " Duracion: " + response.routes[0].legs[0].duration.text + " Distancia: " + response.routes[0].legs[0].distance.text);
+                  console.log(response);
+                  response.routes[0].legs[0].steps.forEach((step) => {
+                      console.log("Instrucciones:");
+                    console.log(step.instructions);
                 });     
                   newRenderer.setDirections(response);
                   setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
@@ -129,6 +132,7 @@ const handleCallColectivo = (e) => {
                 else {
                 window.alert("Directions request failed due to " + status);
                 console.log(directionsRenderer);
+                
               }
             }
           );
