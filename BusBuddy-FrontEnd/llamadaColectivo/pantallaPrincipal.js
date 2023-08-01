@@ -17,8 +17,6 @@ const PantallaPrincipal = () => {
   const key = process.env.NEXT_PUBLIC_API_KEY;
 
   useEffect(() => {
-    initAutoComplete("inputUbi", setAddress);
-    initAutoComplete("inputDestino", setDestination);
 
     // Load Google Maps API asynchronously only if not already initialized
     if (!googleMapsInitialized) {
@@ -36,28 +34,10 @@ const PantallaPrincipal = () => {
   }, []);
 
   const initializeMap = () => {
-    if (!map) {
       map = new window.google.maps.Map(mapContainerRef.current, {
         center: { lat: -34.5702515, lng: -58.4533877 },
         zoom: 13,
       });
-    }
-  };
-  const initAutoComplete = (inputId, setAddressCallback) => {
-    if (google && google.maps) {
-      const input = document.getElementById(inputId);
-      const options = {
-        componentRestrictions: { country: "ar" }
-      };
-      const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place && place.formatted_address) {
-          setAddressCallback(place.formatted_address.split(",")[0]);
-        }
-      });
-    }
   };
 
   const handleChange = (e) => {
@@ -84,7 +64,7 @@ const PantallaPrincipal = () => {
 const handleCallColectivo = (e) => {
   e.preventDefault();
   const linea = document.getElementById("inputLinea").value;
-  fetch("http://localhost:3001/Findlinea/" + linea)
+  fetch("http://localhost:3001/Findlinea/" + linea  )
     .then(response => response.json())
     .then(response => {
       var idlinea = response;
@@ -105,7 +85,6 @@ const handleCallColectivo = (e) => {
           console.log(response);
           const newGuide = new window.google.maps.DirectionsService();
           const newRenderer = new window.google.maps.DirectionsRenderer();
-          newRenderer.setMap(map);
           newGuide.route(
             {
               origin: address,
@@ -117,17 +96,19 @@ const handleCallColectivo = (e) => {
               provideRouteAlternatives: true,
             },
             (response, status) => {
-              if (status === "OK") {
-                  
-                // response.routes.forEach((route) => {
-                  console.log("Hora de salida: " + response.routes[0].legs[0].departure_time.text + " Hora de llegada: " + response.routes[0].legs[0].arrival_time.text +  " Duracion: " + response.routes[0].legs[0].duration.text + " Distancia: " + response.routes[0].legs[0].distance.text);
-                  console.log(response);
-                  response.routes[0].legs[0].steps.forEach((step) => {
-                      console.log("Instrucciones:");
-                    console.log(step.instructions);
+              if (status === "OK") {  
+                response.routes.forEach((route, index) => {
+                  console.log("Ruta: " + String(parseInt(index) + 1));
+                  route.legs[0].steps.forEach((step) => {
+                    if (step.travel_mode === "TRANSIT") {
+                      console.log("Linea: " + step.transit.line.name + " Parada de Inicio: " + step.transit.departure_stop.name + " Cantidad de paradas:"+ step.transit.num_stops + " Hora de salida: " + step.transit.departure_time.text + " Hora de llegada: " + step.transit.arrival_time.text + " Duracion: " + step.duration.text + " Distancia: " + step.distance.text);  
+                    }
                 });     
-                  newRenderer.setDirections(response);
-                  setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
+                });           
+                initializeMap(); // Create a new DirectionsRenderer object to render the directions
+                newRenderer.setMap(map);
+                setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
+                newRenderer.setDirections(response);
                 } 
                 else {
                 window.alert("Directions request failed due to " + status);
@@ -139,7 +120,6 @@ const handleCallColectivo = (e) => {
         });
     });
 };
-
 
   const getLocation = (e) => {
     e.preventDefault();
