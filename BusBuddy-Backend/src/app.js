@@ -126,7 +126,7 @@ app.get('/lineas/:id', async (req, res) => {
 });
 
 app.get('/Findlinea/:nro', async (req, res) => {
-    const { nro } = req.params;
+    const { nro } = req.params; 
     const lineas = await prisma.Lineas.findUnique({
         where: {
             linea: nro
@@ -135,8 +135,14 @@ app.get('/Findlinea/:nro', async (req, res) => {
     res.json(lineas.id);
 });
 
-// Rutas de Colectivos
+app.post('/Crearlinea', async(req, res) => {
+    const linea = await prisma.Lineas.create({
+        data: req.body,
+    });
+    res.json(linea);
+});
 
+// Rutas de Colectivos
 app.post('/colectivos/:id', async(req, res) => {
     const { id } = req.params;
     const parada = await prisma.Colectivo.create({
