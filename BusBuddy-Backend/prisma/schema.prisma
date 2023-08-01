@@ -56,7 +56,7 @@ model Solicitudes {
 
 model Lineas {
   id          Int           @id @unique(map: "id") @default(autoincrement())
-  linea       String        @unique
+  linea       Int        @unique
   paradas     Paradas[]
   colectivos  Colectivo[]
   solicitudes Solicitudes[]

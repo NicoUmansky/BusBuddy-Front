@@ -129,10 +129,15 @@ app.get('/Findlinea/:nro', async (req, res) => {
     const { nro } = req.params; 
     const lineas = await prisma.Lineas.findUnique({
         where: {
-            linea: nro
+            linea: parseInt(nro)
         }        
     });
+    if (lineas){
     res.json(lineas.id);
+    }
+    else{
+        res.json(null);
+    }
 });
 
 app.post('/Crearlinea', async(req, res) => {
