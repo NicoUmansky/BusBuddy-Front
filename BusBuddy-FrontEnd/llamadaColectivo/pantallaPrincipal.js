@@ -68,6 +68,11 @@ const handleCallColectivo = (e) => {
     .then(response => response.json())
     .then(response => {
       var idlinea = response;
+      if (idlinea === null) {
+        alert("No existe la linea ingresada");
+        return;
+      }
+      else {
       const newSoli = fetch("http://localhost:3001/CrearSolicitud", {
         method: "POST",
         body: JSON.stringify({
@@ -102,7 +107,15 @@ const handleCallColectivo = (e) => {
                   route.legs[0].steps.forEach((step) => {
                     if (step.travel_mode === "TRANSIT") {
                       console.log("Linea: " + step.transit.line.name + " Parada de Inicio: " + step.transit.departure_stop.name + " Cantidad de paradas:"+ step.transit.num_stops + " Hora de salida: " + step.transit.departure_time.text + " Hora de llegada: " + step.transit.arrival_time.text + " Duracion: " + step.duration.text + " Distancia: " + step.distance.text);  
+                      if (String(linea + "A") === String(step.transit.line.name) || String(linea + "B") === String(step.transit.line.name) ){
+                        console.log("La ruta elegida es: " + linea)
+                      }
                     }
+                    // else if(step.travel_mode === "WALKING"){
+                    //   step.steps.forEach((guia) =>{
+                    //     console.log(guia.instructions)
+                    //   });
+                    // }
                 });     
                 });           
                 initializeMap(); // Create a new DirectionsRenderer object to render the directions
@@ -118,7 +131,9 @@ const handleCallColectivo = (e) => {
             }
           );
         });
+      }
     });
+  
 };
 
   const getLocation = (e) => {
