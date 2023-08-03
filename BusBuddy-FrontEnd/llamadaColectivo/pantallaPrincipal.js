@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
 import { google } from "google-maps";
 
-
 const PantallaPrincipal = () => {
   const [address, setAddress] = useState("");
   const [destination, setDestination] = useState("");
@@ -10,14 +9,12 @@ const PantallaPrincipal = () => {
   const [showOrigin, setShowOrigin] = useState(true);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
 
-
   const mapContainerRef = useRef(null);
   let map;
   let googleMapsInitialized = false; // Flag to indicate if the Google Maps API is loaded
   const key = process.env.NEXT_PUBLIC_API_KEY;
 
   useEffect(() => {
-
     // Load Google Maps API asynchronously only if not already initialized
     if (!googleMapsInitialized) {
       const script = document.createElement("script");
@@ -34,10 +31,10 @@ const PantallaPrincipal = () => {
   }, []);
 
   const initializeMap = () => {
-      map = new window.google.maps.Map(mapContainerRef.current, {
-        center: { lat: -34.5702515, lng: -58.4533877 },
-        zoom: 13,
-      });
+    map = new window.google.maps.Map(mapContainerRef.current, {
+      center: { lat: -34.5702515, lng: -58.4533877 },
+      zoom: 13,
+    });
   };
 
   const handleChange = (e) => {
@@ -49,92 +46,56 @@ const PantallaPrincipal = () => {
     }
   };
 
-  const handleNext = (e) => {
+  const handleCallColectivo = (e) => {
     e.preventDefault();
-    if (address === "") {
-      alert("Debe ingresar una dirección");
-      return;
-    }
-    else{
-    setShowDestination(true);
-    setShowOrigin(false);
-    }
-
-  };
-const handleCallColectivo = (e) => {
-  e.preventDefault();
-  const linea = document.getElementById("inputLinea").value;
-  fetch("http://localhost:3001/Findlinea/" + linea  )
-    .then(response => response.json())
-    .then(response => {
-      var idlinea = response;
-      if (idlinea === null) {
-        alert("No existe la linea ingresada");
-        return;
-      }
-      else {
-      const newSoli = fetch("http://localhost:3001/CrearSolicitud", {
-        method: "POST",
-        body: JSON.stringify({
-          id_linea: idlinea,
-          direccionOrigen: address,
-          direccionDestino: destination,
-        }),
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json"
-        }
-      })
-        .then(response => response.json())
-        .then(response => {
-          console.log(response);
-          const newGuide = new window.google.maps.DirectionsService();
-          const newRenderer = new window.google.maps.DirectionsRenderer();
-          newGuide.route(
-            {
-              origin: address,
-              destination: destination,
-              travelMode: window.google.maps.TravelMode.TRANSIT,
-              transitOptions: {
-                modes: [window.google.maps.TransitMode.BUS],
-              },
-              provideRouteAlternatives: true,
-            },
-            (response, status) => {
-              if (status === "OK") {  
-                response.routes.forEach((route, index) => {
-                  console.log("Ruta: " + String(parseInt(index) + 1));
-                  route.legs[0].steps.forEach((step) => {
-                    if (step.travel_mode === "TRANSIT") {
-                      console.log("Linea: " + step.transit.line.name + " Parada de Inicio: " + step.transit.departure_stop.name + " Cantidad de paradas:"+ step.transit.num_stops + " Hora de salida: " + step.transit.departure_time.text + " Hora de llegada: " + step.transit.arrival_time.text + " Duracion: " + step.duration.text + " Distancia: " + step.distance.text);  
-                      if (String(linea + "A") === String(step.transit.line.name) || String(linea + "B") === String(step.transit.line.name) ){
-                        console.log("La ruta elegida es: " + linea)
-                      }
-                    }
-                    // else if(step.travel_mode === "WALKING"){
-                    //   step.steps.forEach((guia) =>{
-                    //     console.log(guia.instructions)
-                    //   });
-                    // }
-                });     
-                });           
-                initializeMap(); // Create a new DirectionsRenderer object to render the directions
-                newRenderer.setMap(map);
-                setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
-                newRenderer.setDirections(response);
-                } 
-                else {
-                window.alert("Directions request failed due to " + status);
-                console.log(directionsRenderer);
-                
+    const newGuide = new window.google.maps.DirectionsService();
+    const newRenderer = new window.google.maps.DirectionsRenderer();
+    newGuide.route(
+      {
+        origin: address,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.TRANSIT,
+        transitOptions: {
+          modes: [window.google.maps.TransitMode.BUS],
+        },
+        provideRouteAlternatives: true,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          response.routes.forEach((route, index) => {
+            console.log("Ruta: " + String(parseInt(index) + 1));
+            route.legs[0].steps.forEach((step) => {
+              if (step.travel_mode === "TRANSIT") {
+                console.log(
+                  "Linea: " +
+                    step.transit.line.name +
+                    " Parada de Inicio: " +
+                    step.transit.departure_stop.name +
+                    " Cantidad de paradas:" +
+                    step.transit.num_stops +
+                    " Hora de salida: " +
+                    step.transit.departure_time.text +
+                    " Hora de llegada: " +
+                    step.transit.arrival_time.text +
+                    " Duracion: " +
+                    step.duration.text +
+                    " Distancia: " +
+                    step.distance.text
+                );
               }
-            }
-          );
-        });
+            });
+          });
+          initializeMap(); // Create a new DirectionsRenderer object to render the directions
+          newRenderer.setMap(map);
+          setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
+          newRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+          console.log(directionsRenderer);
+        }
       }
-    });
-  
-};
+    );
+  };
 
   const getLocation = (e) => {
     e.preventDefault();
@@ -154,67 +115,47 @@ const handleCallColectivo = (e) => {
       alert("Geolocation is not supported by this browser.");
     }
   };
-return (
+
+  return (
     <div>
       <div ref={mapContainerRef} className={styles.mapContainer} />
-
       <form className={styles.container}>
-        {showOrigin && (
-          <div>
-            <input
-              type="text"
-              placeholder="Añadir ubicación"
-              defaultValue={address}
-              id="inputUbi"
-              className={styles.inputUbi}
-              autoComplete="off"
-              onChange={handleChange}
-            />
-            <button
-              id="btnUbiActual"
-              className={styles.btnUbiActual}
-              onClick={getLocation}
-            >
-              <b>Ubicación Actual</b>
-            </button>
-            <label className={styles.text}> ó </label>
-            <button
-              type="button"
-              className={styles.button}
-              onClick={handleNext}
-            >
-              Siguiente
-            </button>
-          </div>
-        )}
-        {showDestination && (
-          <div>
-            <input
-              type="text"
-              placeholder="Añadir destino"
-              defaultValue={destination}
-              id="inputDestino"
-              className={styles.inputUbi}
-              autoComplete="off"
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Linea de colectivo"
-              id="inputLinea"
-              className={styles.inputlinea}
-              autoComplete="off"
-            />
-
-            <button
-              type="submit"
-              className={styles.button}
-              onClick={handleCallColectivo}
-            >
-              Llamar Colectivo
-            </button>
-          </div>
-        )}
+        <div>
+          <input
+            type="text"
+            placeholder="Añadir ubicación"
+            defaultValue={address}
+            id="inputUbi"
+            className={styles.inputUbi}
+            autoComplete="off"
+            onChange={handleChange}
+          />
+          <button
+            id="btnUbiActual"
+            className={styles.btnUbiActual}
+            onClick={getLocation}
+          >
+            <b>Ubicación Actual</b>
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Añadir destino"
+            defaultValue={destination}
+            id="inputDestino"
+            className={styles.inputDest}
+            autoComplete="off"
+            onChange={handleChange}
+          />
+          <button
+            type="submit"
+            className={styles.button}
+            onClick={handleCallColectivo}
+          >
+            Llamar Colectivo
+          </button>
+        </div>
       </form>
     </div>
   );
