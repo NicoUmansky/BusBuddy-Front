@@ -13,12 +13,6 @@ const HomePage = () => {
 
     <div>
       <SignUpForm />
-      {/* <p>
-        ¿Ya tenés una cuenta?{' '}
-        <a onClick={handleLogin} style={{ cursor: 'pointer' }}>
-          Iniciar sesión
-        </a>
-      </p> */}
     </div>
   );
 };
