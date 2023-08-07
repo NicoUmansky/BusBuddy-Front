@@ -43,7 +43,7 @@
     height: 50px;
     font-size: 20px;
     position: absolute;
-    top: 82px;
+    top: 30%;
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -57,21 +57,7 @@
     height: 50px;
     font-size: 20px;
     position: absolute;
-    bottom: 65px;
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #000000;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: black;
-  }
-
-  .inputlinea{
-    height: 50px;
-    font-size: 20px;
-    position: absolute;
-    bottom: 170px;
+    bottom: 25%;
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -95,13 +81,37 @@
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .buttonConfirmation{
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    width: 70%;
+    height: 30%;
+    padding: 10px;
+    background-color: #048B94;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .buttonConfirmation:hover{
+    background-color: #0aa7b3;
+  }
+
+  .buttonConfirmation:active{
+    background-color: #077b83;
+  }
   
   .button:hover {
-    background-color: #4C5762;
+    background-color: #0aa7b3;
   }
   
   .button:active {
-    background-color: grey;
+    background-color: #077b83;
   }
   
   .btnUbiActual{

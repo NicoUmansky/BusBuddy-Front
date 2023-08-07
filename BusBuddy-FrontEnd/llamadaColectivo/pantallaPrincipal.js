@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
-import { google } from "google-maps";
+import { google } from "google-maps"; // Import google-maps types
 
 const PantallaPrincipal = () => {
   const [address, setAddress] = useState("");
   const [destination, setDestination] = useState("");
-  const [showDestination, setShowDestination] = useState(false);
-  const [showOrigin, setShowOrigin] = useState(true);
+  const [ShowConfirmation, setShowConfirmation] = useState(false);
+  const [showFirstForm, setShowFirstForm] = useState(true);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
 
   const mapContainerRef = useRef(null);
@@ -91,6 +91,8 @@ const PantallaPrincipal = () => {
           newRenderer.setDirections(response);
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
+          setShowConfirmation(true);
+          setShowFirstForm(false);
         } else {
           window.alert("Directions request failed due to " + status);
           console.log(directionsRenderer);
@@ -121,6 +123,7 @@ const PantallaPrincipal = () => {
   return (
     <div>
       <div ref={mapContainerRef} className={styles.mapContainer} />
+      {showFirstForm && (
       <form className={styles.container}>
         <div>
           <input
@@ -150,15 +153,20 @@ const PantallaPrincipal = () => {
             autoComplete="off"
             onChange={handleChange}
           />
-          <button
+          <button 
             type="submit"
             className={styles.button}
-            onClick={handleCallColectivo}
-          >
-            Llamar Colectivo
+            onClick={handleCallColectivo}>      
+            Siguiente
           </button>
         </div>
       </form>
+      )}
+      {ShowConfirmation && (
+        <div className={styles.container}>
+          <button className={styles.buttonConfirmation}>Llamar colectivo</button>
+          </div>
+      )}
     </div>
   );
 };
