@@ -1,5 +1,5 @@
 .container {
-    max-width: 400px;
+    max-width: 100%;
     margin: 20 auto;
     padding: 20px;
     background-color: #1C1C1E;
@@ -12,7 +12,7 @@
     height: 40vh;
     width: 100vw;
     position: absolute;
-    bottom: 0;
+    bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
