@@ -43,7 +43,7 @@ app.post('/FindUser', async (req, res) => {
     fetch(location)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         res.json(data.results[0].formatted_address);
       })
       .catch(error => {
@@ -158,23 +158,55 @@ app.post('/colectivos/:id', async(req, res) => {
 
 // Rutas de Paradas
 
-app.post('/paradas/:id', async(req, res) => {
+app.post('/CreateParadas/:id', async(req, res) => {
     const { id } = req.params;
+    var data = req.body;
+    data.id_linea = parseInt(id);
     const parada = await prisma.Paradas.create({
-        data: req.body,
+        data: data
     });
     res.json(parada);
 });
 
-app.get('/paradas/:id', async(req, res) => {
-    const { id } = req.params;
-    const parada = await prisma.Paradas.findUnique({
+async function addParadas(direccion, latitude, longitude, id_linea){
+    latitude = String(latitude);
+    longitude = String(longitude);
+    const creacion = fetch("http://localhost:3001/CreateParadas/" + id_linea, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            latitud: latitude,
+            longitud:longitude,
+            direccion: direccion
+    
+        })
+        }).then(response => response.json())
+        .then(response => {
+            console.log(response);
+        });
+
+    return creacion;
+    }
+
+// addParadas("2833 RIVADAVIA AV.",-34.610177,-58.406543,2);
+
+app.get('/paradas/', async(req, res) => {
+    const parada = await prisma.Paradas.findMany();
+    res.json(parada);
+});
+
+app.get('/paradas/:id_linea', async(req, res) => {
+    const { id_linea } = req.params;
+    const parada = await prisma.Paradas.findMany({
         where: {
-            id: parseInt(id)
+            id_linea: parseInt(id_linea)
         }
     });
     res.json(parada);
 });
+
 
 // Rutas de solicitudes
 

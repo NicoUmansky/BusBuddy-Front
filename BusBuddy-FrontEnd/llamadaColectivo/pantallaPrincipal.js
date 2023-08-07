@@ -69,26 +69,28 @@ const PantallaPrincipal = () => {
                 console.log(
                   "Linea: " +
                     step.transit.line.name +
-                    " Parada de Inicio: " +
+                    ", Parada de Inicio: " +
                     step.transit.departure_stop.name +
-                    " Cantidad de paradas:" +
+                    ", Parada de Destino: " +
+                    step.transit.arrival_stop.name +
+                    ", Cantidad de paradas:" +
                     step.transit.num_stops +
-                    " Hora de salida: " +
+                    ", Hora de salida: " +
                     step.transit.departure_time.text +
-                    " Hora de llegada: " +
+                    ", Hora de llegada: " +
                     step.transit.arrival_time.text +
-                    " Duracion: " +
+                    ", Duracion: " +
                     step.duration.text +
-                    " Distancia: " +
+                    ", Distancia: " +
                     step.distance.text
                 );
               }
             });
           });
           initializeMap(); // Create a new DirectionsRenderer object to render the directions
+          newRenderer.setDirections(response);
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
-          newRenderer.setDirections(response);
         } else {
           window.alert("Directions request failed due to " + status);
           console.log(directionsRenderer);
