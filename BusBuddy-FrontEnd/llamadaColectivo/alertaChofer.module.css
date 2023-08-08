@@ -18,6 +18,27 @@
     align-items: center;
   }
 
+  .containerINFO {
+    max-width: 500px;
+    margin: 20 auto;
+    padding: 20px;
+    background-color: #1C1C1E;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* height: 90vh;
+    width: 100vw; 
+    display: grid;
+    place-items: center; */
+    height: 50vh;
+    width: 100vw;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+
+
   .text{
     color: white; 
     font-size: 30px;
@@ -89,9 +110,10 @@
     transform: translateX(-50%);
     font-size: 30px;
     width: 90%;
-    height: 30%;
-    padding: 10px;
+    height: 15%;
+    /* padding: 10px; */
     background-color: #048B94;
+    text-align: center;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -147,3 +169,11 @@
     max-width: 80%;
     max-height: 100%;
   }
+  
+  .textInfo{
+    color: white; 
+    font-size: 18px;
+    position: absolute;
+    text-align: center;
+
+    } 

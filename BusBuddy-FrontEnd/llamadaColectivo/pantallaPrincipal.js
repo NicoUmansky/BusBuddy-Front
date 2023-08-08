@@ -8,6 +8,13 @@ const PantallaPrincipal = () => {
   const [ShowConfirmation, setShowConfirmation] = useState(false);
   const [showFirstForm, setShowFirstForm] = useState(true);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
+  const [FirstStop, setFirstStop] = useState("");
+  const [LastStop, setLastStop] = useState("");
+  const [linea, setLinea] = useState("");
+  const [Distancia, setDistancia] = useState("");
+  const [Duracion, setDuracion] = useState("");
+  const [nroViaje, setNroViaje] = useState("");
+
 
   const mapContainerRef = useRef(null);
   let map;
@@ -50,6 +57,7 @@ const PantallaPrincipal = () => {
     e.preventDefault();
     const newGuide = new window.google.maps.DirectionsService();
     const newRenderer = new window.google.maps.DirectionsRenderer();
+    var primerViaje = true;
     newGuide.route(
       {
         origin: address,
@@ -62,6 +70,7 @@ const PantallaPrincipal = () => {
       },
       (response, status) => {
         if (status === "OK") {
+          console.log(response)
           response.routes.forEach((route, index) => {
             console.log("Ruta: " + String(parseInt(index) + 1));
             route.legs[0].steps.forEach((step) => {
@@ -84,6 +93,21 @@ const PantallaPrincipal = () => {
                     ", Distancia: " +
                     step.distance.text
                 );
+                if (primerViaje === true) {
+                  const primera = String(step.transit.departure_stop.name);
+                  const ultima = String(step.transit.arrival_stop.name);
+                  const linea = String(step.transit.line.name);
+                  const distancia = String(step.distance.text);
+                  const duracion = String(step.duration.text);
+                  const nroViaje = String(parseInt(index) + 1);
+                    setDistancia(distancia);
+                    setNroViaje(nroViaje);
+                    setFirstStop(primera);
+                    setLastStop(ultima);
+                    setLinea(linea);
+                    setDuracion(duracion);
+                  primerViaje = false;
+                }
               }
             });
           });
@@ -114,7 +138,7 @@ const PantallaPrincipal = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        fetch("http://localhost:3001/findLocation/" + latitude + "," + longitude)
+        fetch("http://192.168.68.107:3001/findLocation/" + latitude + "," + longitude)
           .then(response => response.json())
           .then(response => {
             const address = String(response).split(",")[0];
@@ -169,12 +193,20 @@ const PantallaPrincipal = () => {
       </form>
       )}
       {ShowConfirmation && (
-        <div className={styles.container}>
+        <div className={styles.containerINFO}>
           <button className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
           </button>
+          <div className={styles.textInfo}>
+          <h1><b>Informacion viaje: {nroViaje}</b></h1>
+          <h2>Linea: <b>{linea}</b></h2>
+          <h2>Subirse en: <b>{FirstStop}</b></h2>
+          <h2>Bajarse en: <b>{LastStop}</b></h2>
+          <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
           </div>
+        </div>
+
       )}
     </div>
   );
