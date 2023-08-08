@@ -101,6 +101,12 @@ const PantallaPrincipal = () => {
     );
   };
 
+  const goBack = (e) => {
+    e.preventDefault();
+    setShowConfirmation(false);
+    setShowFirstForm(true);
+  }
+
   const getLocation = (e) => {
     e.preventDefault();
     if (navigator.geolocation) {
@@ -165,6 +171,9 @@ const PantallaPrincipal = () => {
       {ShowConfirmation && (
         <div className={styles.container}>
           <button className={styles.buttonConfirmation}>Llamar colectivo</button>
+          <button className={styles.Atrasbtn} onClick={goBack}>
+            <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
+          </button>
           </div>
       )}
     </div>
