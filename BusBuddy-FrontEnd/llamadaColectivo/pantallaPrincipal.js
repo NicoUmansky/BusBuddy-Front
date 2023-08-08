@@ -138,7 +138,7 @@ const PantallaPrincipal = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        fetch("http://192.168.68.107:3001/findLocation/" + latitude + "," + longitude)
+        fetch("http://localhost:3001/findLocation/" + latitude + "," + longitude)
           .then(response => response.json())
           .then(response => {
             const address = String(response).split(",")[0];

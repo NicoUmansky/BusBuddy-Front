@@ -20,7 +20,7 @@ export default function Login() {
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
-    const response = await fetch("http://192.168.68.107:3001/FindUser", {
+    const response = await fetch("http://localhost:3001/FindUser", {
       method: "POST",
             body: JSON.stringify({
               email: email,
