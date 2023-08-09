@@ -110,13 +110,13 @@
     transform: translateX(-50%);
     font-size: 30px;
     width: 90%;
-    height: 15%;
+    height: 20%;
     /* padding: 10px; */
     background-color: #048B94;
     text-align: center;
     color: #fff;
     border: none;
-    border-radius: 20px;
+    border-radius: 4px;
     cursor: pointer;
   }
 
@@ -150,11 +150,11 @@
   }
 
   .Atrasbtn{
-    height: 20%;
+    height: 18%;
     width: 15%;
     color: white;
     background-color: #048B94;
-    border-radius: 6px;
+    border-radius: 100%;
   } 
 
   .Atrasbtn:hover{
@@ -166,8 +166,10 @@
   }
 
   .Flecha{
-    max-width: 80%;
-    max-height: 100%;
+    max-width: 60%;
+    max-height: 70%;
+    align-items: center;
+    left: 60%;
   }
   
   .textInfo{
