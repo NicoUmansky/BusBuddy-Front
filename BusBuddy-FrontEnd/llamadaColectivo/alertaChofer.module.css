@@ -1,5 +1,5 @@
 .container {
-    max-width: 400px;
+    /* max-width: 400px; */
     margin: 20 auto;
     padding: 20px;
     background-color: #1C1C1E;
@@ -9,13 +9,13 @@
     width: 100vw; 
     display: grid;
     place-items: center; */
-    height: 40vh;
+    height: 100vh;
     width: 100vw;
     position: absolute;
     bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
-    align-items: center;
+    /* align-items: center; */
   }
 
   .containerINFO {
@@ -64,7 +64,7 @@
     height: 50px;
     font-size: 20px;
     position: absolute;
-    top: 30%;
+    top: 11%;
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -78,7 +78,7 @@
     height: 50px;
     font-size: 20px;
     position: absolute;
-    bottom: 25%;
+    top: 18.7%;
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -177,5 +177,4 @@
     font-size: 18px;
     position: absolute;
     text-align: center;
-
     } 

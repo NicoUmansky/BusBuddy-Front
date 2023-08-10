@@ -31,18 +31,18 @@ const PantallaPrincipal = () => {
       script.onload = () => {
         googleMapsInitialized = true;
         console.log("Google Maps initialized");
-        initializeMap();
+        // initializeMap();
       };
       document.body.appendChild(script);
     }
   }, []);
 
-  const initializeMap = () => {
-    map = new window.google.maps.Map(mapContainerRef.current, {
-      center: { lat: -34.5702515, lng: -58.4533877 },
-      zoom: 13,
-    });
-  };
+  // const initializeMap = () => {
+  //   map = new window.google.maps.Map(mapContainerRef.current, {
+  //     center: { lat: -34.5702515, lng: -58.4533877 },
+  //     zoom: 13,
+  //   });
+  // };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -51,6 +51,24 @@ const PantallaPrincipal = () => {
     } else if (id === "inputDestino") {
       setDestination(value);
     }
+  };
+
+var listaOpciones = [];
+const ShowInfo = (step) => {
+  const primera = String(step.transit.departure_stop.name);
+  const ultima = String(step.transit.arrival_stop.name);
+  const linea = String(step.transit.line.name);
+  const distancia = String(step.distance.text);
+  const duracion = String(step.duration.text);
+  listaOpciones.push([primera, ultima, linea, distancia, duracion])
+  // const nroViaje = String(parseInt(index) + 1);
+    setDistancia(distancia);
+    setFirstStop(primera);
+    setLastStop(ultima);
+    setLinea(linea);
+    setDuracion(duracion);
+    alert(listaOpciones)
+    return listaOpciones;
   };
 
   const handleCallColectivo = (e) => {
@@ -93,25 +111,13 @@ const PantallaPrincipal = () => {
                     ", Distancia: " +
                     step.distance.text
                 );
-                if (primerViaje === true) {
-                  const primera = String(step.transit.departure_stop.name);
-                  const ultima = String(step.transit.arrival_stop.name);
-                  const linea = String(step.transit.line.name);
-                  const distancia = String(step.distance.text);
-                  const duracion = String(step.duration.text);
-                  const nroViaje = String(parseInt(index) + 1);
-                    setDistancia(distancia);
-                    setNroViaje(nroViaje);
-                    setFirstStop(primera);
-                    setLastStop(ultima);
-                    setLinea(linea);
-                    setDuracion(duracion);
-                  primerViaje = false;
-                }
+                  ShowInfo(step);
+
               }
+            console.log(listaOpciones)
             });
           });
-          initializeMap(); // Create a new DirectionsRenderer object to render the directions
+          // initializeMap(); // Create a new DirectionsRenderer object to render the directions
           newRenderer.setDirections(response);
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
@@ -199,7 +205,7 @@ const PantallaPrincipal = () => {
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
           </button>
           <div className={styles.textInfo}>
-          <h1><b>Informacion viaje: {nroViaje}</b></h1>
+          <h1><b>Informacion viaje</b></h1>
           <h2>Linea: <b>{linea}</b></h2>
           <h2>Subirse en: <b>{FirstStop}</b></h2>
           <h2>Bajarse en: <b>{LastStop}</b></h2>
