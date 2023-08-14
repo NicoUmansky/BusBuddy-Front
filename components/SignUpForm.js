@@ -28,7 +28,7 @@ const SignUpForm = () => {
     e.preventDefault();
     
     if (password == RepeatPassword){
-      const newUser = fetch("http://localhost:3001/CreateUser", {
+      const newUser = fetch("http://https://breakable-turtleneck-shirt-foal.cyclic.app/CreateUser", {
         method: "POST",
         body: JSON.stringify({
           nombreapellido: nombreapellido,
