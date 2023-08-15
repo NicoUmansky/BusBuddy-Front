@@ -20,7 +20,7 @@ export default function Login() {
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
-    const response = await fetch("breakable-turtleneck-shirt-foal.cyclic.app/FindUser", {
+    const response = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/FindUser", {
       method: "POST",
             body: JSON.stringify({
               email: email,

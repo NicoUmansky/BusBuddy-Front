@@ -144,7 +144,7 @@ const ShowInfo = (step) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        fetch("breakable-turtleneck-shirt-foal.cyclic.app/findLocation/" + latitude + "," + longitude)
+        fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/findLocation/" + latitude + "," + longitude)
           .then(response => response.json())
           .then(response => {
             const address = String(response).split(",")[0];
