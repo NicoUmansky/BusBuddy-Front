@@ -166,32 +166,29 @@ const ShowInfo = (step) => {
         .then(response => response.json())
         .then(response => {
           const parada = String(response);
-          // console.log(parada);
+          console.log(parada);
         });
         return paradas;
   }
 
 
           
- async function llamarColectivo (e){
+const llamarColectivo = (e) => {
     e.preventDefault();
-    const paradaInicio = await elegirParadaRandom();
-    console.log(paradaInicio);
-    const soli = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
+    const {paradaInicio, paradaDestino} = elegirParadaRandom();
+    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
       method: "POST",
       body: JSON.stringify({
         id_usuario: 1,
         id_linea: 2,
-        paradaDestino: 7,
-        paradaInicio: 10,
+        paradaDestino: paradaDestino,
+        paradaInicio: paradaInicio,
         direccionDestino: "",
         direccionOrigen: ""
       }),
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-
+        "Content-Type": "application/json"
       }
     })
       .then(response => response.json())
