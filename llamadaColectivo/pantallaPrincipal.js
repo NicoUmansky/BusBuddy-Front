@@ -155,6 +155,29 @@ const ShowInfo = (step) => {
       alert("Geolocation is not supported by this browser.");
     }
   };
+  const llamarColectivo = (e) => {
+    e.preventDefault();
+    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
+      method: "POST",
+      body: JSON.stringify({
+        id_usuario: 1,
+        id_linea: 2,
+        paradaDestino: 3,
+        paradaInicio: 8,
+        direccionDestino: "",
+        direccionOrigen: ""
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
+    window.location.href = '/mainPage';
+  }
+
+
 
   return (
     <div>
@@ -200,7 +223,7 @@ const ShowInfo = (step) => {
       )}
       {ShowConfirmation && (
         <div className={styles.containerINFO}>
-          <button className={styles.buttonConfirmation}>Llamar colectivo</button>
+          <button onClick={llamarColectivo} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
           </button>

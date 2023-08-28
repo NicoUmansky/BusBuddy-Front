@@ -28,13 +28,13 @@ const SignUpForm = () => {
     e.preventDefault();
     
     if (password == RepeatPassword){
-      const newUser = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateUser", {
-        method: "POST",
-        body: JSON.stringify({
-          nombreapellido: nombreapellido,
-          email: email,
-          password: password
-        }),
+          const newUser = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateUser", {
+            method: "POST",
+            body: JSON.stringify({
+              nombreapellido: nombreapellido,
+              email: email,
+              password: password
+            }),
         headers: {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json"
