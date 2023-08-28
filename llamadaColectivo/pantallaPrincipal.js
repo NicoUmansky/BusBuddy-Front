@@ -155,15 +155,34 @@ const ShowInfo = (step) => {
       alert("Geolocation is not supported by this browser.");
     }
   };
-  const llamarColectivo = (e) => {
+  const elegirParadaRandom = (e) => {
+    const paradas = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/GetParadas", {
+      method: "GET",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+        }
+        })
+        .then(response => response.json())
+        .then(response => {
+          const parada = String(response);
+          console.log(parada);
+        });
+        return paradas;
+  }
+
+
+          
+const llamarColectivo = (e) => {
     e.preventDefault();
+    const {paradaInicio, paradaDestino} = elegirParadaRandom();
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
       method: "POST",
       body: JSON.stringify({
         id_usuario: 1,
         id_linea: 2,
-        paradaDestino: 3,
-        paradaInicio: 8,
+        paradaDestino: paradaDestino,
+        paradaInicio: paradaInicio,
         direccionDestino: "",
         direccionOrigen: ""
       }),
@@ -173,9 +192,9 @@ const ShowInfo = (step) => {
       }
     })
       .then(response => response.json())
-      .then(response => console.log(response));
-    window.location.href = '/mainPage';
-  }
+      .then(response => console.log(response.id));
+      alert("Se ha llamado al colectivo");
+    }
 
 
 
