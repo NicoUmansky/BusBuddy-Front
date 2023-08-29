@@ -251,7 +251,7 @@ async function llamarColectivo(paradaI, paradaD){
   try {
     const closestCoord = await CheckDistance(lat, long);
     if (closestCoord) {
-      console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
+      alert("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
     } else {
       alert("No se pudo encontrar la parada más cercana.");
     }
