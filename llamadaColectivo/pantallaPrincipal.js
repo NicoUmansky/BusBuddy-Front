@@ -185,8 +185,8 @@ async function llamarColectivo(paradaI, paradaD){
         id_linea: 2,
         paradaDestino: parseInt(paradaD),
         paradaInicio: parseInt(paradaI),
-        direccionDestino: "",
-        direccionOrigen: ""
+        direccionDestino: address,
+        direccionOrigen: destination,
       }),
       headers: {
         Accept: "application/json, text/plain, */*",
