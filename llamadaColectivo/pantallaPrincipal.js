@@ -171,7 +171,6 @@ const ShowInfo = (step) => {
           console.log(parada);
           const paradaI = parada.split(",")[0];
           const paradaD = parada.split(",")[1];
-          alert("Parada de inicio: " + paradaI + ", Parada de destino: " + paradaD);
           llamarColectivo(paradaI, paradaD);
         });
   }
