@@ -31,18 +31,18 @@ const PantallaPrincipal = () => {
       script.onload = () => {
         googleMapsInitialized = true;
         console.log("Google Maps initialized");
-        // initializeMap();
+       initializeMap();
       };
       document.body.appendChild(script);
     }
   }, []);
 
-  // const initializeMap = () => {
-  //   map = new window.google.maps.Map(mapContainerRef.current, {
-  //     center: { lat: -34.5702515, lng: -58.4533877 },
-  //     zoom: 13,
-  //   });
-  // };
+  const initializeMap = () => {
+    map = new window.google.maps.Map(mapContainerRef.current, {
+      center: { lat: -34.5702515, lng: -58.4533877 },
+      zoom: 13,
+    });
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -84,7 +84,7 @@ const ShowInfo = (step) => {
         transitOptions: {
           modes: [window.google.maps.TransitMode.BUS],
         },
-        provideRouteAlternatives: true,
+        provideRouteAlternatives: false,
       },
       (response, status) => {
         if (status === "OK") {
@@ -117,7 +117,8 @@ const ShowInfo = (step) => {
             console.log(listaOpciones)
             });
           });
-          // initializeMap(); // Create a new DirectionsRenderer object to render the directions
+          // googleMapsInitialized = false;
+          initializeMap(); // Create a new DirectionsRenderer object to render the directions
           newRenderer.setDirections(response);
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
@@ -202,8 +203,8 @@ async function llamarColectivo(paradaI, paradaD){
 
   return (
     <div>
-      <div ref={mapContainerRef} className={styles.mapContainer} />
-      {showFirstForm && (
+    <div ref={mapContainerRef} className={styles.mapContainer} />
+ {showFirstForm && (
       <form className={styles.container}>
         <div>
           <input
