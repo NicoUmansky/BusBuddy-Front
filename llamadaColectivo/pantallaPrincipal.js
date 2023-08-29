@@ -67,7 +67,7 @@ const ShowInfo = (step) => {
     setLastStop(ultima);
     setLinea(linea);
     setDuracion(duracion);
-    alert(listaOpciones)
+    // alert(listaOpciones)
     return listaOpciones;
   };
 
@@ -155,7 +155,9 @@ const ShowInfo = (step) => {
       alert("Geolocation is not supported by this browser.");
     }
   };
-  const elegirParadaRandom = (e) => {
+
+  async function elegirParadaRandom(e){
+    e.preventDefault();
     const paradas = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/GetParadas", {
       method: "GET",
       headers: {
@@ -167,22 +169,23 @@ const ShowInfo = (step) => {
         .then(response => {
           const parada = String(response);
           console.log(parada);
+          const paradaI = parada[0];
+          const paradaD = parada[1];
+          alert("Parada de inicio: " + paradaI + ", Parada de destino: " + paradaD);
+          llamarColectivo(paradaI, paradaD);
         });
-        return paradas;
   }
 
 
           
-const llamarColectivo = (e) => {
-    e.preventDefault();
-    const {paradaInicio, paradaDestino} = elegirParadaRandom();
+async function llamarColectivo(paradaI, paradaD){
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
       method: "POST",
       body: JSON.stringify({
         id_usuario: 1,
         id_linea: 2,
-        paradaDestino: paradaDestino,
-        paradaInicio: paradaInicio,
+        paradaDestino: paradaD,
+        paradaInicio: paradaI,
         direccionDestino: "",
         direccionOrigen: ""
       }),
@@ -192,7 +195,7 @@ const llamarColectivo = (e) => {
       }
     })
       .then(response => response.json())
-      .then(response => console.log(response.id));
+      .then(response => console.log(response));
       alert("Se ha llamado al colectivo");
     }
 
@@ -242,7 +245,7 @@ const llamarColectivo = (e) => {
       )}
       {ShowConfirmation && (
         <div className={styles.containerINFO}>
-          <button onClick={llamarColectivo} className={styles.buttonConfirmation}>Llamar colectivo</button>
+          <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
           </button>
