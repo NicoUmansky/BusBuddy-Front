@@ -176,7 +176,54 @@ const ShowInfo = (step) => {
         });
   }
 
-
+  async function CheckDistance(lat, long) {
+    try {
+      const response = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/paradas/2", {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      });
+      
+      const data = await response.json();
+      const AllCoords = data.map(parada => [parseFloat(parada.latitud), parseFloat(parada.longitud)]);
+  
+      const calculateDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; // Radio de la Tierra en kilómetros
+        const dLat = (lat2 - lat1) * (Math.PI / 180);
+        const dLon = (lon2 - lon1) * (Math.PI / 180);
+        
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+        return distance;
+        };
+  
+      const targetLat = parseFloat(lat);
+      const targetLong = parseFloat(long);
+  
+      let closestCoord = null;
+      let closestDistance = Infinity;
+  
+      for (const [coordLat, coordLong] of AllCoords) {
+        const distance = calculateDistance(targetLat, targetLong, coordLat, coordLong);
+  
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestCoord = [coordLat, coordLong];
+        }
+      }
+  
+      console.log("La coordenada más cercana es:", closestCoord);
+      return closestCoord;
+    } catch (error) {
+      console.error("Error al obtener coordenadas:", error);
+      return null;
+    }
+  }
           
 async function llamarColectivo(paradaI, paradaD){
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
@@ -196,7 +243,22 @@ async function llamarColectivo(paradaI, paradaD){
     })
       .then(response => response.json())
       .then(response => console.log(response));
-      alert("Se ha llamado al colectivo");
+      alert("Se ha llamado al colectivo");    
+      
+  const lat = -34.561144;
+  const long = -58.457364;
+
+  try {
+    const closestCoord = await CheckDistance(lat, long);
+    if (closestCoord) {
+      console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
+    } else {
+      alert("No se pudo encontrar la parada más cercana.");
+    }
+  } catch (error) {
+    console.error("Error al buscar la parada más cercana:", error);
+    alert("Ocurrió un error al buscar la parada más cercana.");
+  }
     }
 
 
