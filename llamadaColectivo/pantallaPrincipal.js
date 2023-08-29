@@ -184,8 +184,8 @@ async function llamarColectivo(paradaI, paradaD){
       body: JSON.stringify({
         id_usuario: 1,
         id_linea: 2,
-        paradaDestino: paradaD,
-        paradaInicio: paradaI,
+        paradaDestino: parent(paradaD),
+        paradaInicio: parseInt(paradaI),
         direccionDestino: "",
         direccionOrigen: ""
       }),
