@@ -13,8 +13,7 @@ const PantallaPrincipal = () => {
   const [linea, setLinea] = useState("");
   const [Distancia, setDistancia] = useState("");
   const [Duracion, setDuracion] = useState("");
-  const [nroViaje, setNroViaje] = useState("");
-
+  const [NextPage, setNextPage] = useState(false);
 
   const mapContainerRef = useRef(null);
   let map;
@@ -195,9 +194,12 @@ async function llamarColectivo(paradaI, paradaD){
       .then(response => response.json())
       .then(response => console.log(response));
       alert("Se ha llamado al colectivo");    
-      
-  const lat = -34.567861;
-  const long = -58.449008;
+      setNextPage(true);
+      setShowConfirmation(false);
+      // document.getElementsByClassName(styles.mapContainer).style.display = "none";
+    
+      const lat = -34.567861;
+    const long = -58.449008;
 
   try {
     const closestCoord = await CheckDistance(lat, long);
@@ -272,7 +274,17 @@ async function llamarColectivo(paradaI, paradaD){
         </div>
 
       )}
+      {NextPage && (
+        <div className={styles.containerINFOFinal}>
+          <h1><b>Informacion viaje</b></h1>
+          <h2>Linea: <b>{linea}</b></h2>
+          <h2>Subirse en: <b>{FirstStop}</b></h2>
+          <h2>Bajarse en: <b>{LastStop}</b></h2>
+          <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
     </div>
+      )}
+    </div>
+  
   );
 };
 
