@@ -195,6 +195,7 @@ async function llamarColectivo(paradaI, paradaD){
       .then(response => console.log(response));
       alert("Se ha llamado al colectivo");    
       setNextPage(true);
+      mapContainerRef.current.className += "hiddenMap"
       setShowConfirmation(false);
       // document.getElementsByClassName(styles.mapContainer).style.display = "none";
     
