@@ -149,9 +149,16 @@
     cursor: pointer;
   }
 
+  .btnUbiActual:hover{
+    background-color: rgb(148, 141, 141);
+  }
+
+  .btnUbiActual:active{
+    background-color: rgb(207, 194, 194);;
+  }
   .Atrasbtn{
-    height: 18%;
-    width: 15%;
+    height: 15%;
+    width: 12%;
     color: white;
     background-color: #048B94;
     border-radius: 100%;
@@ -168,8 +175,9 @@
   .Flecha{
     max-width: 60%;
     max-height: 70%;
+    position: relative;
     align-items: center;
-    left: 60%;
+    margin-left: 20%;
   }
   
   .textInfo{
@@ -183,6 +191,7 @@
     width: 100vw;
     background-color: #1C1C1E;
     color: white;
+    overflow-y: hidden;
     font-size: 20px;
     align-items: center;
   }
