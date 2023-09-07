@@ -19,7 +19,7 @@
   }
 
   .containerINFO {
-    max-width: 500px;
+    width: 100vw;
     margin: 20 auto;
     padding: 20px;
     background-color: #1C1C1E;
@@ -90,7 +90,7 @@
   
   .button {
     position: absolute;
-    bottom: 10px;
+    bottom: 4%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 20px;
@@ -108,9 +108,9 @@
     bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 30px;
+    font-size: 20px;
     width: 90%;
-    height: 20%;
+    height: 17%;
     /* padding: 10px; */
     background-color: #048B94;
     text-align: center;
@@ -182,7 +182,7 @@
   
   .textInfo{
     color: white; 
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
     } 
 
