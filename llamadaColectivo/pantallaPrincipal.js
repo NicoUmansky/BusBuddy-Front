@@ -3,14 +3,16 @@ import styles from "./alertaChofer.module.css";
 import { google } from "google-maps"; // Import google-maps types
 
 const PantallaPrincipal = () => {
-  const [address, setAddress] = useState("");
-  const [destination, setDestination] = useState("");
+  var [address, setAddress] = useState("");
+  var [destination, setDestination] = useState("");
   const [ShowConfirmation, setShowConfirmation] = useState(false);
   const [showFirstForm, setShowFirstForm] = useState(true);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [FirstStop, setFirstStop] = useState("");
   const [LastStop, setLastStop] = useState("");
   const [linea, setLinea] = useState("");
+  const [HoraSubida, setHoraSubida] = useState("");
+  const [HoraBajada, setHoraBajada] = useState("");
   const [Distancia, setDistancia] = useState("");
   const [Duracion, setDuracion] = useState("");
   const [NextPage, setNextPage] = useState(false);
@@ -57,6 +59,9 @@ const ShowInfo = (step) => {
   const primera = String(step.transit.departure_stop.name);
   const ultima = String(step.transit.arrival_stop.name);
   const linea = String(step.transit.line.name);
+  const HoraS = String (step.transit.departure_time.text);
+  const HoraB = String(step.transit.arrival_time.text);
+
   const distancia = String(step.distance.text);
   const duracion = String(step.duration.text);
   listaOpciones.push([primera, ultima, linea, distancia, duracion])
@@ -66,12 +71,16 @@ const ShowInfo = (step) => {
     setLastStop(ultima);
     setLinea(linea);
     setDuracion(duracion);
+    setHoraSubida(HoraS);
+    setHoraBajada(HoraB);
     // alert(listaOpciones)
     return listaOpciones;
   };
-
+  var SegundoIntento = false;
   const handleCallColectivo = (e) => {
     e.preventDefault();
+    alert(SegundoIntento);
+
     const newGuide = new window.google.maps.DirectionsService();
     const newRenderer = new window.google.maps.DirectionsRenderer();
     var primerViaje = true;
@@ -124,6 +133,16 @@ const ShowInfo = (step) => {
           setShowConfirmation(true);
           setShowFirstForm(false);
         } else {
+          SegundoIntento = true;
+          if(SegundoIntento == true){
+            setAddress(address + ", CABA");
+            destination = destination + ", CABA";
+            alert(destination) 
+            handleCallColectivo(e);
+            SegundoIntento = false;     
+      
+          }
+          
           window.alert("Directions request failed due to " + status);
           console.log(directionsRenderer);
         }
@@ -279,8 +298,8 @@ async function llamarColectivo(paradaI, paradaD){
       {NextPage && (
         <div className={styles.containerINFOFinal}>
           {/* <img className={styles.flechaFinal}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img> */}
-          <h2 className={styles.llegadaBus}>El colectivo llegará en ... minutos aproximadamente</h2>
-          <h2 className={styles.llegadaFinal}>Llegará a su destino final en <b>{Duracion}</b> minutos aproximadamente</h2>
+          <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
+          <h2 className={styles.llegadaFinal}>Llegará a su destino final a las <b>{HoraBajada}</b> minutos aproximadamente</h2>
     </div>
       )}
     </div>
