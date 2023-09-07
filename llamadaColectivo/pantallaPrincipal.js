@@ -258,6 +258,7 @@ async function llamarColectivo(paradaI, paradaD){
         </div>
       </form>
       )}
+      {/* <div ref={mapContainerRef} className={`${styles.mapContainer} ${NextPage ? styles.hiddenMap : ''}`} /> */}
       {ShowConfirmation && (
         <div className={styles.containerINFO}>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
@@ -276,11 +277,9 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {NextPage && (
         <div className={styles.containerINFOFinal}>
-          <h1><b>Informacion viaje</b></h1>
-          <h2>Linea: <b>{linea}</b></h2>
-          <h2>Subirse en: <b>{FirstStop}</b></h2>
-          <h2>Bajarse en: <b>{LastStop}</b></h2>
-          <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
+          {/* <img className={styles.flechaFinal}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img> */}
+          <h2 className={styles.llegadaBus}>El colectivo llegará en ... minutos aproximadamente</h2>
+          <h2 className={styles.llegadaFinal}>Llegará a su destino final en <b>{Duracion}</b> minutos aproximadamente</h2>
     </div>
       )}
     </div>
