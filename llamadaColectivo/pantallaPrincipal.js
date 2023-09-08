@@ -55,44 +55,24 @@ const PantallaPrincipal = () => {
   };
 
 var listaOpciones = [];
+var contadorViajes = 0;
 const ShowInfo = (step) => {
   const primera = String(step.transit.departure_stop.name);
   const ultima = String(step.transit.arrival_stop.name);
   const linea = String(step.transit.line.name);
   const HoraS = String (step.transit.departure_time.text);
   const HoraB = String(step.transit.arrival_time.text);
-  
-  const currentDate = new Date(); 
-  const horaActual = currentDate.getHours() + ":" + currentDate.getMinutes();
-  var minutosRestantes = parseInt(HoraS.split(":")[1]) - parseInt(horaActual.split(":")[1]);
-  var horasRestantes = parseInt(HoraS.split(":")[0]) - parseInt(horaActual.split(":")[0]);
-  if(minutosRestantes < 0){
-    minutosRestantes = 60 + minutosRestantes;
-    horasRestantes = horasRestantes - 1;
-  }
-  if(horasRestantes < 0){
-    horasRestantes = 24 + horasRestantes;
-  }
-  
-
   const distancia = String(step.distance.text);
   const duracion = String(step.duration.text);
-  listaOpciones.push([primera, ultima, linea, distancia, duracion])
+  listaOpciones.push([primera, ultima, linea, distancia, duracion, HoraS, HoraB]);
   // const nroViaje = String(parseInt(index) + 1);
-    setDistancia(distancia);
-    setFirstStop(primera);
-    setLastStop(ultima);
-    setLinea(linea);
-    setDuracion(duracion);
-    setHoraSubida(String(horasRestantes) + ":" + String(minutosRestantes));
-    setHoraBajada(HoraB);
-    // alert(listaOpciones)
+    console.log(listaOpciones);
     return listaOpciones;
   };
   var SegundoIntento = false;
   const handleCallColectivo = (e) => {
     e.preventDefault();
-    alert(SegundoIntento);
+    // alert(SegundoIntento);
 
     const newGuide = new window.google.maps.DirectionsService();
     const newRenderer = new window.google.maps.DirectionsRenderer();
@@ -135,8 +115,16 @@ const ShowInfo = (step) => {
                   ShowInfo(step);
 
               }
-            console.log(listaOpciones)
-            });
+
+
+            });    
+              setDistancia(listaOpciones[contadorViajes][3]);
+              setFirstStop(listaOpciones[contadorViajes][0]);
+              setLastStop(listaOpciones[contadorViajes][1]);
+              setLinea(listaOpciones[contadorViajes][2]);
+              setDuracion(listaOpciones[contadorViajes][4]);
+              setHoraSubida(listaOpciones[contadorViajes][5]);
+              setHoraBajada(listaOpciones[contadorViajes][6]);
           });
           // googleMapsInitialized = false;
           initializeMap(); // Create a new DirectionsRenderer object to render the directions
@@ -150,7 +138,6 @@ const ShowInfo = (step) => {
           if(SegundoIntento == true){
             setAddress(address + ", CABA");
             destination = destination + ", CABA";
-            alert(destination) 
             handleCallColectivo(e);
             SegundoIntento = false;     
       
@@ -225,7 +212,6 @@ async function llamarColectivo(paradaI, paradaD){
     })
       .then(response => response.json())
       .then(response => console.log(response));
-      alert("Se ha llamado al colectivo");    
       setNextPage(true);
       mapContainerRef.current.className += "hiddenMap"
       setShowConfirmation(false);
@@ -294,8 +280,8 @@ async function llamarColectivo(paradaI, paradaD){
       {NextPage && (
         <div className={styles.containerINFOFinal}>
           {/* <img className={styles.flechaFinal}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img> */}
-          <h2 className={styles.llegadaBus}>El colectivo llegará en {HoraSubida} minutos aproximadamente</h2>
-          <h2 className={styles.llegadaFinal}>Llegará a su destino final a las <b>{HoraBajada}</b> minutos aproximadamente</h2>
+          <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
+          <h2 className={styles.llegadaFinal}>Llegará a su destino a las <b>{HoraBajada}</b> aproximadamente</h2>
     </div>
       )}
     </div>
