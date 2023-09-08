@@ -208,7 +208,7 @@ const ShowInfo = (step) => {
   }
   
 async function llamarColectivo(paradaI, paradaD){
-    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CrearSolicitud", {
+    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
       method: "POST",
       body: JSON.stringify({
         id_usuario: 1,
