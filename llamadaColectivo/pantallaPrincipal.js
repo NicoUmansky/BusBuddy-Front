@@ -16,6 +16,8 @@ const PantallaPrincipal = () => {
   const [Distancia, setDistancia] = useState("");
   const [Duracion, setDuracion] = useState("");
   const [NextPage, setNextPage] = useState(false);
+  const [idSolicitud, setIdSolicitud] = useState();
+  const [paradaI, setParadaI] = useState();
 
   const mapContainerRef = useRef(null);
   let map;
@@ -74,8 +76,8 @@ const ShowInfo = (step) => {
     e.preventDefault();
     // alert(SegundoIntento);
 
-    const newGuide = new window.google.maps.DirectionsService();
-    const newRenderer = new window.google.maps.DirectionsRenderer();
+    var newGuide = new window.google.maps.DirectionsService();
+    var newRenderer = new window.google.maps.DirectionsRenderer();
     var primerViaje = true;
     newGuide.route(
       {
@@ -115,8 +117,6 @@ const ShowInfo = (step) => {
                   ShowInfo(step);
 
               }
-
-
             });    
               setDistancia(listaOpciones[contadorViajes][3]);
               setFirstStop(listaOpciones[contadorViajes][0]);
@@ -136,14 +136,14 @@ const ShowInfo = (step) => {
         } else {
           SegundoIntento = true;
           if(SegundoIntento == true){
-            setAddress(address + ", CABA");
+            address = address + ", CABA";
             destination = destination + ", CABA";
             handleCallColectivo(e);
             SegundoIntento = false;     
       
           }
           
-          window.alert("Directions request failed due to " + status);
+          // window.alert("Directions request failed due to " + status);
           console.log(directionsRenderer);
         }
       }
@@ -186,12 +186,15 @@ const ShowInfo = (step) => {
         })
         .then(response => response.json())
         .then(response => {
-          const parada = String(response);
+          var parada = String(response);
           console.log(parada);
           const paradaI = parada.split(",")[0];
+          setParadaI(parseInt(paradaI));
           const paradaD = parada.split(",")[1];
-          llamarColectivo(paradaI, paradaD);
+         const call = llamarColectivo(paradaI, paradaD);
+        return call;
         });
+      
   }
   
 async function llamarColectivo(paradaI, paradaD){
@@ -211,11 +214,37 @@ async function llamarColectivo(paradaI, paradaD){
       }
     })
       .then(response => response.json())
-      .then(response => console.log(response));
+      .then(response => {
+      var idReq = String(response);
+      setIdSolicitud(parseInt(idReq));
       setNextPage(true);
       mapContainerRef.current.className += "hiddenMap"
       setShowConfirmation(false);
     }
+      );
+    }
+
+    async function CancelRequest(e){
+      e.preventDefault();
+      const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/DeleteSolicitud", {
+        method: "POST",
+        body: JSON.stringify({
+          id: idSolicitud,
+          interno: "3056",
+          paradaInicio: paradaI,          
+        }),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(response => console.log(response));
+        setNextPage(false);
+        setShowFirstForm(true);
+        mapContainerRef.current.className = "mapContainer"
+        initializeMap();
+      } 
 
 
 
@@ -279,14 +308,15 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {NextPage && (
         <div className={styles.containerINFOFinal}>
-          {/* <img className={styles.flechaFinal}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img> */}
           <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
           <h2 className={styles.llegadaFinal}>Llegará a su destino a las <b>{HoraBajada}</b> aproximadamente</h2>
+          <button className={styles.Cancelarbtn} onClick={CancelRequest}>CANCELAR VIAJE</button>
     </div>
       )}
     </div>
   
   );
 };
+
 
 export default PantallaPrincipal;
