@@ -240,9 +240,9 @@ async function llamarColectivo(paradaI, paradaD){
       })
         .then(response => response.json())
         .then(response => console.log(response));
+         mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy"
         setNextPage(false);
         setShowFirstForm(true);
-        mapContainerRef.current.className = "mapContainer"
         initializeMap();
       } 
 
