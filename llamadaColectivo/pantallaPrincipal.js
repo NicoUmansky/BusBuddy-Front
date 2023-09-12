@@ -310,7 +310,7 @@ async function llamarColectivo(paradaI, paradaD){
         <div className={styles.containerINFOFinal}>
           <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
           <h2 className={styles.llegadaFinal}>Llegará a su destino a las <b>{HoraBajada}</b> aproximadamente</h2>
-          <button className={styles.Cancelarbtn} onClick={CancelRequest}>CANCELAR VIAJE</button>
+          <button className={styles.cancelarBtn} onClick={CancelRequest}>CANCELAR VIAJE</button>
     </div>
       )}
     </div>
