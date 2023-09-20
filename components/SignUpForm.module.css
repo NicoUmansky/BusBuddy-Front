@@ -18,7 +18,7 @@
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #BB0493;
+    color: #048B94;
     align-items: center;
   }
   
@@ -45,7 +45,7 @@
     height: 70%;
     width: 80%;
     padding: 10px;
-    background-color: #BB0493;
+    background-color: #048B94;
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -53,10 +53,10 @@
   }
   
   .button:hover {
-    background-color: #580246;
+    background-color: #0aa7b3;
   }
   
   .button:active {
-    background-color: #f11dc3;
+    background-color: #077b83;
   }
   
