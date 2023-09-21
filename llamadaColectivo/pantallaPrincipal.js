@@ -229,9 +229,7 @@ async function llamarColectivo(paradaI, paradaD){
       const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/DeleteSolicitud", {
         method: "POST",
         body: JSON.stringify({
-          id: idSolicitud,
-          interno: "3056",
-          paradaInicio: paradaI,          
+          id: idSolicitud,          
         }),
         headers: {
           Accept: "application/json, text/plain, */*",
