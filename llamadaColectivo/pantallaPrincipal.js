@@ -18,6 +18,7 @@ const PantallaPrincipal = () => {
   const [NextPage, setNextPage] = useState(false);
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
+  const [menuPage, setMenuPage] = useState(false);
 
   const mapContainerRef = useRef(null);
   let map;
@@ -248,6 +249,7 @@ async function llamarColectivo(paradaI, paradaD){
 
   return (
     <div>
+      <button className="tresRayitas" onClick={showMenu}></button>
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
       <form className={styles.container}>
