@@ -253,10 +253,24 @@
 
   .tresRayitas{
     position: absolute;
+    height: 8vh;
+    width: 15vw;
+    background: transparent;
+    z-index: 1;
+    top: 10%;
+    right: 82%;
+  }
+
+  /* .btnHamburguesa{
+    position: absolute;
     height: 20vh;
     width: 20vw;
     background: transparent;
     z-index: 1;
     margin-top: 3%;
     right: 80%;
+  } */
+
+  .hiddenMenu{
+    display: none;
   }

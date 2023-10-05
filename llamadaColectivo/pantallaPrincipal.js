@@ -20,7 +20,7 @@ const PantallaPrincipal = () => {
   const [paradaI, setParadaI] = useState();
   const [menuPage, setMenuPage] = useState(false);
   var [menu, setMenu] = useState(false);
-
+  const MenuRef = useRef(null);
   const mapContainerRef = useRef(null);
   let map;
   let googleMapsInitialized = false; // Flag to indicate if the Google Maps API is loaded
@@ -134,6 +134,8 @@ const ShowInfo = (step) => {
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
           setShowConfirmation(true);
+          MenuRef.current.className = "btnHamburguesa";
+
           setShowFirstForm(false);
         } else {
           SegundoIntento = true;
@@ -201,8 +203,7 @@ const ShowInfo = (step) => {
           const paradaD = parada.split(",")[1];
          const call = llamarColectivo(paradaI, paradaD);
         return call;
-        });
-      
+        });   
   }
   
 async function llamarColectivo(paradaI, paradaD){
@@ -251,14 +252,12 @@ async function llamarColectivo(paradaI, paradaD){
         setShowFirstForm(true);
         initializeMap();
       } 
-
-
-
   return (
     <div>
-      <button className={styles.tresRayitas} onClick={showMenu}>
-        <img className={styles.Flecha} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
+      <button ref={MenuRef}className={styles.hiddenMenu} onClick={showMenu}>
+        <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
       </button>
+    
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
       <form className={styles.container}>
@@ -313,8 +312,14 @@ async function llamarColectivo(paradaI, paradaD){
           <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
           </div>
         </div>
-
       )}
+      {/* <div>
+      {setMenu && (
+        <div className={styles.containerINFOFinal}>
+
+        </div>
+      )}
+      </div> */}
       {NextPage && (
         <div className={styles.containerINFOFinal}>
           <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
