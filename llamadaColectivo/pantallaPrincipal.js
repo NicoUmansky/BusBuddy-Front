@@ -46,7 +46,14 @@ const PantallaPrincipal = () => {
     map = new window.google.maps.Map(mapContainerRef.current, {
       center: { lat: -34.5702515, lng: -58.4533877 },
       zoom: 13,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        mapTypeIds: [] 
+      },
     });
+    map.setOptions({
+      fullscreenControl: false
+    })
   };
 
   const handleChange = (e) => {
