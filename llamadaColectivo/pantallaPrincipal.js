@@ -162,6 +162,7 @@ const ShowInfo = (step) => {
     e.preventDefault();
     setShowConfirmation(false);
     setMenu(true);
+    mapContainerRef.current.className += "hiddenMap";
   }
   const getLocation = (e) => {
     e.preventDefault();
@@ -255,7 +256,8 @@ async function llamarColectivo(paradaI, paradaD){
 
   return (
     <div>
-      <button className="tresRayitas" onClick={showMenu}>
+      <button className={styles.tresRayitas} onClick={showMenu}>
+        <img className={styles.Flecha} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
       </button>
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (

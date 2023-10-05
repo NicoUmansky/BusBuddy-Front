@@ -157,8 +157,8 @@
     background-color: rgb(207, 194, 194);;
   }
   .Atrasbtn{
-    height: 15%;
-    width: 12%;
+    height: 7vh;
+    width: 14vw;
     color: white;
     background-color: #048B94;
     border-radius: 100%;
@@ -249,4 +249,14 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  .tresRayitas{
+    position: absolute;
+    height: 20vh;
+    width: 20vw;
+    background: transparent;
+    z-index: 1;
+    margin-top: 3%;
+    right: 80%;
   }
