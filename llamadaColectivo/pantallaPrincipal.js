@@ -19,6 +19,7 @@ const PantallaPrincipal = () => {
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
   const [menuPage, setMenuPage] = useState(false);
+  var [menu, setMenu] = useState(false);
 
   const mapContainerRef = useRef(null);
   let map;
@@ -157,6 +158,11 @@ const ShowInfo = (step) => {
     setShowFirstForm(true);
   }
 
+  const showMenu = (e) => {
+    e.preventDefault();
+    setShowConfirmation(false);
+    setMenu(true);
+  }
   const getLocation = (e) => {
     e.preventDefault();
     if (navigator.geolocation) {
@@ -249,7 +255,8 @@ async function llamarColectivo(paradaI, paradaD){
 
   return (
     <div>
-      <button className="tresRayitas" onClick={showMenu}></button>
+      <button className="tresRayitas" onClick={showMenu}>
+      </button>
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
       <form className={styles.container}>
