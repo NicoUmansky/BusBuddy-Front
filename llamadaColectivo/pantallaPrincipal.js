@@ -18,8 +18,7 @@ const PantallaPrincipal = () => {
   const [NextPage, setNextPage] = useState(false);
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
-  const [menuPage, setMenuPage] = useState(false);
-  var [menu, setMenu] = useState(false);
+  var [Showmenu, setMenu] = useState(false);
   const MenuRef = useRef(null);
   const mapContainerRef = useRef(null);
   let map;
@@ -306,6 +305,21 @@ async function llamarColectivo(paradaI, paradaD){
       </form>
       )}
       {ShowConfirmation && (
+        <div className={styles.containerINFO}>
+          <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
+          <button className={styles.Atrasbtn} onClick={goBack}>
+            <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
+          </button>
+          <div className={styles.textInfo}>
+          <h1><b>Informacion viaje</b></h1>
+          <h2>Linea: <b>{linea}</b></h2>
+          <h2>Subirse en: <b>{FirstStop}</b></h2>
+          <h2>Bajarse en: <b>{LastStop}</b></h2>
+          <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
+          </div>
+        </div>
+      )}
+      {Showmenu && (
         <div className={styles.containerINFO}>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
