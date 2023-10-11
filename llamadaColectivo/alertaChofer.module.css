@@ -183,7 +183,7 @@
   
   .textInfo{
     color: white; 
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     } 
 
@@ -274,4 +274,11 @@
 
   .hiddenMenu{
     display: none;
+  }
+
+  .containerMENU{
+    height: 100vh;
+    width: 100vw;
+    background-color: #1C1C1E;
+    margin-top: -6.2%;
   }
