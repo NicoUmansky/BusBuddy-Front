@@ -19,7 +19,7 @@ const PantallaPrincipal = () => {
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
   var [Showmenu, setMenu] = useState(false);
-  const MenuRef = useRef(null);
+  const menuRef = useRef(null);
   const mapContainerRef = useRef(null);
   let map;
   let googleMapsInitialized = false; // Flag to indicate if the Google Maps API is loaded
@@ -140,7 +140,7 @@ const ShowInfo = (step) => {
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
           setShowConfirmation(true);
-          MenuRef.current.className = "btnHamburguesa";
+          menuRef.current.className = "btnHamburguesa";
 
           setShowFirstForm(false);
         } else {
@@ -164,9 +164,6 @@ const ShowInfo = (step) => {
     e.preventDefault();
     setShowConfirmation(false);
     setShowFirstForm(true);
-    setMenu(false);
-    MenuRef.current.className = "hiddenMenu";
-
   }
 
   const showMenu = (e) => {
@@ -174,6 +171,7 @@ const ShowInfo = (step) => {
     setShowConfirmation(false);
     setMenu(true);
     mapContainerRef.current.className += "hiddenMap";
+    menuRef.current.className += "hiddenBtnHamburguesa";
   }
   const getLocation = (e) => {
     e.preventDefault();
@@ -263,7 +261,7 @@ async function llamarColectivo(paradaI, paradaD){
       } 
   return (
     <div>
-      <button ref={MenuRef}className={styles.hiddenMenu} onClick={showMenu}>
+      <button ref={menuRef}className={styles.hiddenMenu} onClick={showMenu}>
         <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
       </button>
     
@@ -324,18 +322,12 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {Showmenu && (
         <div className={styles.containerMENU}>
-          <button className={styles.Atrasbtn} onClick={goBack}>
-            <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
-          </button>
+          <h1 className={styles.textMenu}>Cerrar Sesión</h1>
+          <h1 className={styles.textMenu}>Viajes Frecuentes</h1>
+          <h1></h1>
         </div>
       )}
-      {/* <div>
-      {setMenu && (
-        <div className={styles.containerINFOFinal}>
 
-        </div>
-      )}
-      </div> */}
       {NextPage && (
         <div className={styles.containerINFOFinal}>
           <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>

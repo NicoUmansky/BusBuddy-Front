@@ -282,3 +282,14 @@
     background-color: #1C1C1E;
     margin-top: -6.2%;
   }
+
+  .textMenu{
+    color: white; 
+    font-size: 20px;
+    text-align: center;
+    top: 20%;
+  }
+
+  .hiddenBtnHamburguesa{
+    display: none;
+  }
