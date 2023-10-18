@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
 import { google } from "google-maps"; // Import google-maps types
+import { useUser } from '../components/UserContext';
+
 
 const PantallaPrincipal = () => {
+  const { userId } = useUser();
+
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
   const [ShowConfirmation, setShowConfirmation] = useState(false);
@@ -217,7 +221,7 @@ async function llamarColectivo(paradaI, paradaD){
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
       method: "POST",
       body: JSON.stringify({
-        id_usuario: 1,
+        id_usuario: userId,
         id_linea: 2,
         paradaDestino: parseInt(paradaD),
         paradaInicio: parseInt(paradaI),
