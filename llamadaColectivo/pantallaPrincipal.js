@@ -170,9 +170,19 @@ const ShowInfo = (step) => {
     e.preventDefault();
     setShowConfirmation(false);
     setMenu(true);
-    mapContainerRef.current.className += "hiddenMap";
-    menuRef.current.className += "hiddenBtnHamburguesa";
+    mapContainerRef.current.className = "hiddenMap";
+    menuRef.current.className = "alertaChofer_hiddenMenu__U0aM5";
   }
+
+  const hideMenu = (e) => {
+    e.preventDefault();
+    setShowConfirmation(true);
+    setMenu(false);
+    mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy";
+    menuRef.current.className = "btnHamburguesa";
+
+  }
+
   const getLocation = (e) => {
     e.preventDefault();
     if (navigator.geolocation) {
@@ -322,9 +332,11 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {Showmenu && (
         <div className={styles.containerMENU}>
+          <button ref={menuRef}className={styles.btnHamburguesa} onClick={hideMenu}>
+            <img className={styles.tresRayitasBlancas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
+          </button>
           <h1 className={styles.textMenu}>Cerrar Sesión</h1>
           <h1 className={styles.textMenu}>Viajes Frecuentes</h1>
-          <h1></h1>
         </div>
       )}
 
