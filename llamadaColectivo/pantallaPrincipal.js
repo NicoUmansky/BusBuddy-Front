@@ -208,6 +208,11 @@ const ShowInfo = (step) => {
 
   async function elegirParadaRandom(e){
     e.preventDefault();
+    if(userId == null){
+      window.location.href = '/login';
+    
+    }
+    else{ 
     const paradas = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/GetParadas", {
       method: "GET",
       headers: {
@@ -225,10 +230,11 @@ const ShowInfo = (step) => {
          const call = llamarColectivo(paradaI, paradaD);
         return call;
         });   
+      }
   }
   
 async function llamarColectivo(paradaI, paradaD){
-    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
+ const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
       method: "POST",
       body: JSON.stringify({
         id_usuario: userId,
@@ -252,7 +258,8 @@ async function llamarColectivo(paradaI, paradaD){
       setShowConfirmation(false);
     }
       );
-    }
+    
+  }
 
     async function CancelRequest(e){
       e.preventDefault();
