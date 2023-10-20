@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
 import { google } from "google-maps"; // Import google-maps types
+import { useUser } from '../components/UserContext';
+
 
 const PantallaPrincipal = () => {
+  const { userId } = useUser();
+
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
   const [ShowConfirmation, setShowConfirmation] = useState(false);
@@ -19,7 +23,8 @@ const PantallaPrincipal = () => {
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
   var [Showmenu, setMenu] = useState(false);
-  const menuRef = useRef(null);
+  const menuRefN = useRef(null);
+  const menuRefB = useRef(null);
   const mapContainerRef = useRef(null);
   let map;
   let googleMapsInitialized = false; // Flag to indicate if the Google Maps API is loaded
@@ -140,8 +145,7 @@ const ShowInfo = (step) => {
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
           setShowConfirmation(true);
-          menuRef.current.className = "btnHamburguesa";
-
+          menuRefN.current.className = "btnHamburguesa";
           setShowFirstForm(false);
         } else {
           SegundoIntento = true;
@@ -164,15 +168,27 @@ const ShowInfo = (step) => {
     e.preventDefault();
     setShowConfirmation(false);
     setShowFirstForm(true);
+    setMenu(false);
+    menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
   }
 
   const showMenu = (e) => {
     e.preventDefault();
     setShowConfirmation(false);
+    menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
     setMenu(true);
-    mapContainerRef.current.className += "hiddenMap";
-    menuRef.current.className += "hiddenBtnHamburguesa";
+    mapContainerRef.current.className = "hiddenMap";
   }
+
+  const hideMenu = (e) => {
+    e.preventDefault();
+    mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy";
+    menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
+    setShowConfirmation(true);
+    setMenu(false);
+
+  }
+
   const getLocation = (e) => {
     e.preventDefault();
     if (navigator.geolocation) {
@@ -194,6 +210,12 @@ const ShowInfo = (step) => {
 
   async function elegirParadaRandom(e){
     e.preventDefault();
+    if(userId == null){
+      router.push({
+        pathname: '/login',
+      });
+    }
+    else{ 
     const paradas = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/GetParadas", {
       method: "GET",
       headers: {
@@ -211,13 +233,14 @@ const ShowInfo = (step) => {
          const call = llamarColectivo(paradaI, paradaD);
         return call;
         });   
+      }
   }
   
 async function llamarColectivo(paradaI, paradaD){
-    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
+ const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/CreateSolicitud", {
       method: "POST",
       body: JSON.stringify({
-        id_usuario: 1,
+        id_usuario: userId,
         id_linea: 2,
         paradaDestino: parseInt(paradaD),
         paradaInicio: parseInt(paradaI),
@@ -238,7 +261,8 @@ async function llamarColectivo(paradaI, paradaD){
       setShowConfirmation(false);
     }
       );
-    }
+    
+  }
 
     async function CancelRequest(e){
       e.preventDefault();
@@ -261,10 +285,9 @@ async function llamarColectivo(paradaI, paradaD){
       } 
   return (
     <div>
-      <button ref={menuRef}className={styles.hiddenMenu} onClick={showMenu}>
+        <button ref={menuRefN}className={styles.hiddenMenu} onClick={showMenu}>
         <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
       </button>
-    
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
       <form className={styles.container}>
@@ -306,7 +329,8 @@ async function llamarColectivo(paradaI, paradaD){
       </form>
       )}
       {ShowConfirmation && (
-        <div className={styles.containerINFO}>
+         <div className={styles.containerINFO}>
+           
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
@@ -319,12 +343,15 @@ async function llamarColectivo(paradaI, paradaD){
           <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
           </div>
         </div>
+
       )}
       {Showmenu && (
         <div className={styles.containerMENU}>
+          <button ref={menuRefB}className={styles.btnHamburguesa} onClick={hideMenu}>
+            <img className={styles.tresRayitasBlancas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
+          </button>
           <h1 className={styles.textMenu}>Cerrar Sesión</h1>
           <h1 className={styles.textMenu}>Viajes Frecuentes</h1>
-          <h1></h1>
         </div>
       )}
 

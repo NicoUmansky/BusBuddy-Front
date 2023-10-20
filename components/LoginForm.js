@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useRef, useState } from 'react'
 import styles from './LoginForm.module.css';
+import { useUser } from "../components/UserContext";
 
 
 export default function Login() {
@@ -8,6 +9,8 @@ export default function Login() {
   const emailInput = useRef();
   const passwordInput = useRef();
   const [error, setError] = useState('');
+  const { userId, setUserId } = useUser();
+
 
 
   const handleError = (e) => {
@@ -38,9 +41,9 @@ export default function Login() {
 
             }
             else{
+              setUserId(response.id);
               router.push({
                 pathname: '/mainPage',
-                query: { id: response.id }
               });
             } 
           });

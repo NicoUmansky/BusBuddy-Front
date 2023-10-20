@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styles from './SignUpForm.module.css';
-import { Result } from 'postcss';
+import { useUser } from "../components/UserContext";
+import { useRouter } from "next/router";
 
 const SignUpForm = () => {
+  const router = useRouter();
+  const { userId, setUserId } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nombreapellido, setUsername] = useState('');
@@ -41,13 +44,20 @@ const SignUpForm = () => {
         }
       })
         .then(response => response.json())
-        .then(response => console.log(response));
-        window.location.href = '/mainPage';
-    }   
+        .then(response => {
+          setUserId(response.id);
+        })
+        .then(response => {
+          router.push({
+            pathname: '/mainPage',
+          });
+         })
+      }
     else{
       alert("Las contraseñas no coinciden");
     }
   }
+
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2 className={styles.title}><b>Registrarse</b></h2>
