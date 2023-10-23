@@ -289,3 +289,21 @@
     margin-top: 3%;
     right: 82%;
   }
+
+  .btnCerrarSesion{
+    position: absolute;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20%;
+    color:hsl(0, 3%, 57%);
+    margin-left: 18%;
+  }
+
+  .logoCerrarSesion{
+    position: absolute;
+    height: 6%;
+    width: 10%;
+    transform: scaleX(-1);
+    margin-left: 5%;
+    margin-top: 21%;
+  }
