@@ -11,8 +11,6 @@ export default function Login() {
   const [error, setError] = useState('');
   const { userId, setUserId } = useUser();
 
-
-
   const handleError = (e) => {
     setError(e);
   };
