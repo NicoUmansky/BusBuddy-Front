@@ -1,13 +1,13 @@
 {
     "name": "BusBuddy",
     "short_name": "BusBuddy",
-    "start_url": "/login",
+    "start_url": "../components/LoginForm.js",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
     "icons": [
       {
-        "src": "/icon.png",
+        "src": "/public/Logo.png",
         "sizes": "192x192",
         "type": "image/png"
       }
