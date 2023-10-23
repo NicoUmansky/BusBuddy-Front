@@ -1,7 +1,7 @@
 {
     "name": "BusBuddy",
     "short_name": "BusBuddy",
-    "start_url": "../components/LoginForm.js",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
