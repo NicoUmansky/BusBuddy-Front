@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   description: APP_DESCRIPTION,
-  manifest: "./public/manifest.json",
+  manifest: "/manifest.json",
   themeColor: "#FFFFFF",
   appleWebApp: {
     capable: true,
