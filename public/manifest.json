@@ -1,11 +1,10 @@
 {
     "name": "BusBuddy",
     "short_name": "BusBuddy",
-    "start_url": "/", 
+    "start_url": "/",
     "display": "standalone",
-    "description": "BusBuddy is a web app that helps you find the best bus route to get to your destination.",
     "background_color": "#000000",
-    "theme_color": "#1c1c1e",
+    "theme_color": "#58B05B",
     "icons": [
       {
         "src": "/icon-192x192.png",
