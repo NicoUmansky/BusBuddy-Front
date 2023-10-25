@@ -266,7 +266,6 @@ async function llamarColectivo(paradaI, paradaD){
       var idReq = String(response);
       setIdSolicitud(parseInt(idReq));
       setNextPage(true);
-      menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
       mapContainerRef.current.className += "hiddenMap"
       setShowConfirmation(false);
     }
