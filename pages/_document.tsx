@@ -6,13 +6,12 @@ console.log(process.env.NEXT_PUBLIC_API_KEY)
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
-      {/* <script
-            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`}
-            async
-            defer
-         />     */}
-      <body>
+      <Head>
+      <link rel="manifest" href="/manifest.json"/>
+      <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
+      <meta name="theme-color" content="#58B05B"/> 
+       </Head>
+       <body>
         <Main />
         <NextScript />
       </body>

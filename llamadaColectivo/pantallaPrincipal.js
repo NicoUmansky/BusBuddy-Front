@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./alertaChofer.module.css";
 import { google } from "google-maps"; // Import google-maps types
 import { useUser } from '../components/UserContext';
-
+import { router } from "next/router";
 
 const PantallaPrincipal = () => {
-  const { userId } = useUser();
+  const { userId, setUserId } = useUser();
 
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
@@ -68,6 +68,15 @@ const PantallaPrincipal = () => {
       setDestination(value);
     }
   };
+
+  const cerrarSesion = (e) => {
+    e.preventDefault();
+    setUserId(null);
+    router.push({
+      pathname: '/login',
+    });
+  }
+    
 
 var listaOpciones = [];
 var contadorViajes = 0;
@@ -351,8 +360,10 @@ async function llamarColectivo(paradaI, paradaD){
           <button ref={menuRefB}className={styles.btnHamburguesa} onClick={hideMenu}>
             <img className={styles.tresRayitasBlancas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
           </button>
-          <h1 className={styles.textMenu}>Cerrar Sesión</h1>
-          <h1 className={styles.textMenu}>Viajes Frecuentes</h1>
+          <div>
+            <button className={styles.btnCerrarSesion} onClick={cerrarSesion}>Cerrar Sesión</button>
+            <img className={styles.logoCerrarSesion} src="https://static-00.iconduck.com/assets.00/logout-icon-1873x2048-lbrmz3mj.png" alt='Botón Cerrar Sesión'></img>
+          </div>
         </div>
       )}
 
