@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { UserProvider } from "../components/UserContext";
-// import type { Metadata } from "next";
+import type { Metadata } from "next";
 
 // const APP_NAME = "BusBuddy";
 // const APP_DEFAULT_TITLE = "BusBuddy: Viajar sin limites";
