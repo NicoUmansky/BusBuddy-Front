@@ -178,13 +178,13 @@ const ShowInfo = (step) => {
     setShowConfirmation(false);
     setShowFirstForm(true);
     setMenu(false);
-    menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
+    // menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
   }
 
   const showMenu = (e) => {
     e.preventDefault();
-    setShowConfirmation(false);
-    menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
+    setShowFirstForm(false);
+    // menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
     setMenu(true);
     mapContainerRef.current.className = "hiddenMap";
   }
@@ -192,8 +192,8 @@ const ShowInfo = (step) => {
   const hideMenu = (e) => {
     e.preventDefault();
     mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy";
-    menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
-    setShowConfirmation(true);
+    // menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
+    setShowFirstForm(true);
     setMenu(false);
 
   }
@@ -294,8 +294,8 @@ async function llamarColectivo(paradaI, paradaD){
       } 
   return (
     <div>
-        <button ref={menuRefN}className={styles.hiddenMenu} onClick={showMenu}>
-        <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" alt='Botón Menú'></img>
+        <button ref={menuRefN}className={styles.btnHamburguesa} onClick={showMenu}>
+        <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
       </button>
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
