@@ -13,10 +13,10 @@ const SignUpPage = () => {
   // }, []);
 
   return (
-    <div className={styles.DivGral}>
+    
       <SignUpForm />
-    </div>
-  );
+    
+  )
 };
 
 export default SignUpPage;
