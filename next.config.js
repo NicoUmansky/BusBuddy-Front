@@ -6,11 +6,16 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-const withPWA = require("next-pwa")
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
 
 module.exports = withPWA({
-   
-    dest: "public",
-    register: true,
-    skipWaiting: true,
+  reactStrictMode: true,
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
 });
