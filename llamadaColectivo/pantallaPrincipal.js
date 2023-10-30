@@ -152,10 +152,10 @@ const ShowInfo = (step) => {
           initializeMap(); // Create a new DirectionsRenderer object to render the directions
           newRenderer.setDirections(response);
           newRenderer.setMap(map);
-          setDirectionsRenderer(newRenderer); // Update the state with the new DirectionsRenderer
-          setShowConfirmation(true);
-          menuRefN.current.className = "btnHamburguesa";
+          setDirectionsRenderer(newRenderer);
           setShowFirstForm(false);
+          setShowConfirmation(true);
+
         } else {
           SegundoIntento = true;
           if(SegundoIntento == true){
@@ -178,13 +178,13 @@ const ShowInfo = (step) => {
     setShowConfirmation(false);
     setShowFirstForm(true);
     setMenu(false);
-    // menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
+     menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
   }
 
   const showMenu = (e) => {
     e.preventDefault();
     setShowFirstForm(false);
-    // menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
+     menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
     setMenu(true);
     mapContainerRef.current.className = "hiddenMap";
   }
@@ -192,7 +192,7 @@ const ShowInfo = (step) => {
   const hideMenu = (e) => {
     e.preventDefault();
     mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy";
-    // menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
+    menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
     setShowFirstForm(true);
     setMenu(false);
 
