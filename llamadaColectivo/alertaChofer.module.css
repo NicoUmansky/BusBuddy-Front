@@ -308,3 +308,20 @@
     margin-left: 5%;
     margin-top: 21%;
   }
+
+  .btnFrecuentes{
+    position: absolute;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 40%;
+    color:hsl(0, 3%, 57%);
+    margin-left: 18%;
+  }
+
+  .logoFavoritos{
+    position: absolute;
+    height: 11%;
+    width: 10%;
+    left: 80%;
+    top: 9%;
+  }

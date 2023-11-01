@@ -23,6 +23,7 @@ const PantallaPrincipal = () => {
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
   var [Showmenu, setMenu] = useState(false);
+  const[ShowPopUp, setShowPopUp] = useState(false);
   const menuRefN = useRef(null);
   const menuRefB = useRef(null);
   const mapContainerRef = useRef(null);
@@ -172,6 +173,11 @@ const ShowInfo = (step) => {
       }
     );
   };
+
+  const guardarViaje = (e) => {
+    e.preventDefault();
+    setShowPopUp(true);
+  }
 
   const goBack = (e) => {
     e.preventDefault();
@@ -339,20 +345,27 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {ShowConfirmation && (
          <div className={styles.containerINFO}>
-           
+           <button onClick={guardarViaje}>
+           <img className={styles.logoFavoritos} src="https://static-00.iconduck.com/assets.00/star-icon-512x487-b8lwntwc.png" alt='Botón Viajes Frecuentes'></img>
+           </button>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
           </button>
           <div className={styles.textInfo}>
-          <h1><b>Informacion viaje</b></h1>
-          <h2>Linea: <b>{linea}</b></h2>
+          <h1><b>Información viaje</b></h1>
+          <h2>Línea: <b>{linea}</b></h2>
           <h2>Subirse en: <b>{FirstStop}</b></h2>
           <h2>Bajarse en: <b>{LastStop}</b></h2>
-          <h2>Distancia: <b>{Distancia}</b>, Duracion: <b>{Duracion}</b></h2>
+          <h2>Distancia: <b>{Distancia}</b>, Duración: <b>{Duracion}</b></h2>
           </div>
         </div>
+        )}
 
+      {ShowPopUp && (
+        <div>
+          <input placeholder='Ingresar nombre: '></input>
+        </div>
       )}
       {Showmenu && (
         <div className={styles.containerMENU}>
@@ -363,7 +376,11 @@ async function llamarColectivo(paradaI, paradaD){
             <button className={styles.btnCerrarSesion} onClick={cerrarSesion}>Cerrar Sesión</button>
             <img className={styles.logoCerrarSesion} src="https://static-00.iconduck.com/assets.00/logout-icon-1873x2048-lbrmz3mj.png" alt='Botón Cerrar Sesión'></img>
           </div>
-        </div>
+          <div>
+            <button className={styles.btnFrecuentes}>Viajes frecuentes</button>
+            {/* <img className={styles.logoViajesFrecuentes} src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-heart-icon%2F&psig=AOvVaw3YBv3MX8zxE-WToQEPec-B&ust=1698943473946000&source=images&cd=vfe&opi=89978449&ved=0CAUQjB1qFwoTCKiC78-ho4IDFQAAAAAdAAAAABAE" alt='Botón Viajes Frecuentes'></img> */}
+          </div>
+          </div>
       )}
 
       {NextPage && (
