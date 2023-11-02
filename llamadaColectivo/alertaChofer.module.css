@@ -325,3 +325,28 @@
     left: 80%;
     top: 9%;
   }
+
+  .PopUp{
+    position: absolute;
+    /* display: fleX; */
+    top: 40%;
+  }
+
+  .inputPopUp{
+    display: flex;
+    justify-content: center;  /* centra horizontalmente los hijos */
+    align-items: center;
+    width: 90vw;
+    height: 50px;
+    margin-left: 5%;
+    background-color: #1C1C1E; /* color de fondo del input */
+    color: white;
+    border-radius: 10px;
+    padding-left: 15px;
+  }
+
+  .inputPopUp::placeholder{
+    color: white;
+    font-weight: bold;
+    padding-left: 5px; 
+  }

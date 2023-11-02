@@ -184,6 +184,7 @@ const ShowInfo = (step) => {
     setShowConfirmation(false);
     setShowFirstForm(true);
     setMenu(false);
+    setShowPopUp(false);
      menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
   }
 
@@ -363,8 +364,8 @@ async function llamarColectivo(paradaI, paradaD){
         )}
 
       {ShowPopUp && (
-        <div>
-          <input placeholder='Ingresar nombre: '></input>
+        <div className={styles.PopUp}>
+          <input className={styles.inputPopUp} placeholder='Ingresar nombre:'></input>
         </div>
       )}
       {Showmenu && (
