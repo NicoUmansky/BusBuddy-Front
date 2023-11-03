@@ -329,14 +329,14 @@
   .PopUp{
     position: absolute;
     /* display: fleX; */
-    top: 40%;
+    top: 50%;
   }
 
   .inputPopUp{
     display: flex;
     justify-content: center;  /* centra horizontalmente los hijos */
     align-items: center;
-    width: 90vw;
+    width: 70vw;
     height: 50px;
     margin-left: 5%;
     background-color: #1C1C1E; /* color de fondo del input */
@@ -349,4 +349,19 @@
     color: white;
     font-weight: bold;
     padding-left: 5px; 
+  }
+
+  .btnPopUp{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    height: 50px;
+    background-color: #048B94;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-left: 100%;
+    margin-right: 0%;
   }

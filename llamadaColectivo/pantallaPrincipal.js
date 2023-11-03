@@ -366,6 +366,7 @@ async function llamarColectivo(paradaI, paradaD){
       {ShowPopUp && (
         <div className={styles.PopUp}>
           <input className={styles.inputPopUp} placeholder='Ingresar nombre:'></input>
+          <button className={styles.btnPopUp}>Guardar</button>
         </div>
       )}
       {Showmenu && (
