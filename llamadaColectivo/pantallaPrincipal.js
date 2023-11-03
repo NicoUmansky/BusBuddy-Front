@@ -6,7 +6,7 @@ import { router } from "next/router";
 
 const PantallaPrincipal = () => {
   const { userId, setUserId } = useUser();
-
+  var i = 0;
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
   const [ShowConfirmation, setShowConfirmation] = useState(false);
@@ -176,7 +176,8 @@ const ShowInfo = (step) => {
 
   const guardarViaje = (e) => {
     e.preventDefault();
-    setShowPopUp(true);
+    setShowPopUp(!ShowPopUp); // Cambiar el valor opuesto del estado actual
+
   }
 
   const goBack = (e) => {

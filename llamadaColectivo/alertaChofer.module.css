@@ -329,7 +329,9 @@
   .PopUp{
     position: absolute;
     /* display: fleX; */
-    top: 50%;
+    top: 45%;
+    display: flex;
+    align-items: center;
   }
 
   .inputPopUp{
