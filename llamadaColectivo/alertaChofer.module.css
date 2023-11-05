@@ -309,14 +309,14 @@
     margin-top: 21%;
   }
 
-  .btnFrecuentes{
+  /* .btnFrecuentes{
     position: absolute;
     font-size: 30px;
     font-weight: bold;
     margin-top: 40%;
     color:hsl(0, 3%, 57%);
     margin-left: 18%;
-  }
+  } */
 
   .logoFavoritos{
     position: absolute;
@@ -367,3 +367,58 @@
     margin-left: 100%;
     margin-right: 0%;
   }
+
+/* Estilos para el dropdownContent */
+.dropdownContent {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: 50%; /* Muestra el dropdown debajo del botón */
+  left: 50%; /* Centra el dropdown horizontalmente */
+  transform: translateX(-50%); /* Centra el dropdown horizontalmente */
+  width: 200px; /* Ajusta el ancho según tus necesidades */
+}
+
+/* Estilos para los elementos li en la lista */
+.dropdownContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdownContent li {
+  padding: 8px 0; /* Ajusta el espaciado vertical entre elementos */
+  text-decoration: none;
+  display: block;
+  color: #333;
+}
+
+.dropdownContent li:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+/* Estilos para el botón "Viajes frecuentes" */
+.btnFrecuentes {
+  background-color: #797e83;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  left: 18%; /* Ajusta la posición horizontal del botón */
+  top: 40%; /* Ajusta la posición vertical del botón */
+}
+
+  
+  .btnFrecuentes:hover {
+    background-color: #0055CC; /* Cambia el color al pasar el cursor por encima */
+  }
+  

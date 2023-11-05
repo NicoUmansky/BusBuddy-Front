@@ -9,6 +9,8 @@ const PantallaPrincipal = () => {
   var i = 0;
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [favoriteTrips, setFavoriteTrips] = useState([]);
   const [ShowConfirmation, setShowConfirmation] = useState(false);
   const [showFirstForm, setShowFirstForm] = useState(true);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
@@ -22,6 +24,7 @@ const PantallaPrincipal = () => {
   const [NextPage, setNextPage] = useState(false);
   const [idSolicitud, setIdSolicitud] = useState();
   const [paradaI, setParadaI] = useState();
+  var [FavName, setFavName] = useState("");
   var [Showmenu, setMenu] = useState(false);
   const[ShowPopUp, setShowPopUp] = useState(false);
   const menuRefN = useRef(null);
@@ -67,6 +70,9 @@ const PantallaPrincipal = () => {
       setAddress(value);
     } else if (id === "inputDestino") {
       setDestination(value);
+    }
+    else if (id === "confFav"){
+      setFavName(value);
     }
   };
 
@@ -174,11 +180,54 @@ const ShowInfo = (step) => {
     );
   };
 
-  const guardarViaje = (e) => {
+  const addFav = (e) => {
     e.preventDefault();
     setShowPopUp(!ShowPopUp); // Cambiar el valor opuesto del estado actual
 
   }
+
+  const guardarFav = (e) => {
+    e.preventDefault();
+    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/AddFavorite", {
+      method: "POST",
+      body: JSON.stringify({
+        id_usuario: userId,
+        direccionOrigen: address,
+        direccionDestino: destination,
+        nombre: FavName,
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
+      setShowPopUp(false);
+  }
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+    if (showDropdown) {
+      return;
+    }
+    fetch('https://breakable-turtleneck-shirt-foal.cyclic.app/GetFavorite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id_usuario: userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFavoriteTrips(data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los favoritos', error);
+      });
+  };
+
+
 
   const goBack = (e) => {
     e.preventDefault();
@@ -347,7 +396,7 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {ShowConfirmation && (
          <div className={styles.containerINFO}>
-           <button onClick={guardarViaje}>
+           <button onClick={addFav}>
            <img className={styles.logoFavoritos} src="https://static-00.iconduck.com/assets.00/star-icon-512x487-b8lwntwc.png" alt='Botón Viajes Frecuentes'></img>
            </button>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
@@ -366,8 +415,8 @@ async function llamarColectivo(paradaI, paradaD){
 
       {ShowPopUp && (
         <div className={styles.PopUp}>
-          <input className={styles.inputPopUp} placeholder='Ingresar nombre:'></input>
-          <button className={styles.btnPopUp}>Guardar</button>
+          <input id="confFav" className={styles.inputPopUp} placeholder='Ingresar nombre:' onChange={handleChange}></input>
+          <button className={styles.btnPopUp} onClick={guardarFav}>Guardar</button>
         </div>
       )}
       {Showmenu && (
@@ -379,11 +428,22 @@ async function llamarColectivo(paradaI, paradaD){
             <button className={styles.btnCerrarSesion} onClick={cerrarSesion}>Cerrar Sesión</button>
             <img className={styles.logoCerrarSesion} src="https://static-00.iconduck.com/assets.00/logout-icon-1873x2048-lbrmz3mj.png" alt='Botón Cerrar Sesión'></img>
           </div>
-          <div>
-            <button className={styles.btnFrecuentes}>Viajes frecuentes</button>
-            {/* <img className={styles.logoViajesFrecuentes} src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-heart-icon%2F&psig=AOvVaw3YBv3MX8zxE-WToQEPec-B&ust=1698943473946000&source=images&cd=vfe&opi=89978449&ved=0CAUQjB1qFwoTCKiC78-ho4IDFQAAAAAdAAAAABAE" alt='Botón Viajes Frecuentes'></img> */}
+     <div>
+        <button className={styles.btnFrecuentes} onClick={toggleDropdown}>
+          Viajes frecuentes
+        </button>
+        {showDropdown && (
+          <div className={styles.dropdownContent}>
+            <ul>
+              {favoriteTrips.map((trip) => (
+                <li key={trip.id}>{trip.nombre}</li>
+              ))}
+            </ul>
           </div>
-          </div>
+        
+        )}
+        </div>
+        </div>
       )}
 
       {NextPage && (
