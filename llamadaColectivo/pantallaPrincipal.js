@@ -3,6 +3,9 @@ import styles from "./alertaChofer.module.css";
 import { google } from "google-maps"; // Import google-maps types
 import { useUser } from '../components/UserContext';
 import { router } from "next/router";
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';  
+import { Star } from '@mui/icons-material';
 
 const PantallaPrincipal = () => {
   const { userId, setUserId } = useUser();
@@ -26,6 +29,7 @@ const PantallaPrincipal = () => {
   const [paradaI, setParadaI] = useState();
   var [FavName, setFavName] = useState("");
   var [Showmenu, setMenu] = useState(false);
+  var [relleno, setRelleno] = useState(false);
   const[ShowPopUp, setShowPopUp] = useState(false);
   const menuRefN = useRef(null);
   const menuRefB = useRef(null);
@@ -101,9 +105,16 @@ const ShowInfo = (step) => {
     return listaOpciones;
   };
   var SegundoIntento = false;
-  const handleCallColectivo = (e) => {
+
+  const handleCallColectivo = (e, fav) => {
+    // alert(relleno);
     e.preventDefault();
-    // alert(SegundoIntento);
+    if(fav == true){
+      setRelleno(true);
+    }
+    else{
+      setRelleno(false);
+    }
 
     var newGuide = new window.google.maps.DirectionsService();
     var newRenderer = new window.google.maps.DirectionsRenderer();
@@ -125,24 +136,7 @@ const ShowInfo = (step) => {
             console.log("Ruta: " + String(parseInt(index) + 1));
             route.legs[0].steps.forEach((step) => {
               if (step.travel_mode === "TRANSIT") {
-                console.log(
-                  "Linea: " +
-                    step.transit.line.name +
-                    ", Parada de Inicio: " +
-                    step.transit.departure_stop.name +
-                    ", Parada de Destino: " +
-                    step.transit.arrival_stop.name +
-                    ", Cantidad de paradas:" +
-                    step.transit.num_stops +
-                    ", Hora de salida: " +
-                    step.transit.departure_time.text +
-                    ", Hora de llegada: " +
-                    step.transit.arrival_time.text +
-                    ", Duracion: " +
-                    step.duration.text +
-                    ", Distancia: " +
-                    step.distance.text
-                );
+                
                   ShowInfo(step);
 
               }
@@ -168,7 +162,7 @@ const ShowInfo = (step) => {
           if(SegundoIntento == true){
             address = address + ", CABA";
             destination = destination + ", CABA";
-            handleCallColectivo(e);
+            handleCallColectivo(e, fav);
             SegundoIntento = false;     
       
           }
@@ -203,10 +197,12 @@ const ShowInfo = (step) => {
     })
       .then(response => response.json())
       .then(response => console.log(response));
+      setRelleno(true);
       setShowPopUp(false);
   }
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.preventDefault();
     setShowDropdown(!showDropdown);
     if (showDropdown) {
       return;
@@ -227,6 +223,18 @@ const ShowInfo = (step) => {
       });
   };
 
+  const goToFavorite = (id) => {
+    const fav = favoriteTrips.find((trip) => trip.id === id);
+    setAddress(fav.direccionOrigen);
+    setDestination(fav.direccionDestino);
+    const fakeEvent = { preventDefault: () => {} };
+    setMenu(false);    
+    mapContainerRef.current.className = "alertaChofer_mapContainer__p0zwy";
+    handleCallColectivo(fakeEvent, true);
+    menuRefN.current.className = "alertaChofer_btnHamburguesa_U0aM5"
+  };
+
+
 
 
   const goBack = (e) => {
@@ -240,7 +248,9 @@ const ShowInfo = (step) => {
 
   const showMenu = (e) => {
     e.preventDefault();
+    setShowDropdown(false)
     setShowFirstForm(false);
+    setShowConfirmation(false);
      menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
     setMenu(true);
     mapContainerRef.current.className = "hiddenMap";
@@ -388,7 +398,7 @@ async function llamarColectivo(paradaI, paradaD){
           <button 
             type="submit"
             className={styles.button}
-            onClick={handleCallColectivo}>      
+            onClick={(e) => handleCallColectivo(e, false)}>      
             Siguiente
           </button>
         </div>
@@ -397,7 +407,11 @@ async function llamarColectivo(paradaI, paradaD){
       {ShowConfirmation && (
          <div className={styles.containerINFO}>
            <button onClick={addFav}>
-           <img className={styles.logoFavoritos} src="https://static-00.iconduck.com/assets.00/star-icon-512x487-b8lwntwc.png" alt='Botón Viajes Frecuentes'></img>
+           {relleno ? (
+        <StarRoundedIcon className={styles.logoFavoritos} style={{ fontSize: 40 }} />
+      ) : (
+        <StarBorderRoundedIcon className={styles.logoFavoritos} style={{ fontSize: 40 }} />
+      )}
            </button>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
@@ -434,10 +448,16 @@ async function llamarColectivo(paradaI, paradaD){
         </button>
         {showDropdown && (
           <div className={styles.dropdownContent}>
-            <ul>
-              {favoriteTrips.map((trip) => (
-                <li key={trip.id}>{trip.nombre}</li>
-              ))}
+            <ul>      
+            {favoriteTrips.length > 0 ? (
+        favoriteTrips.map((trip) => (
+          <li key={trip.id} onClick={() => goToFavorite(trip.id)}>
+            {trip.nombre}
+          </li>
+        ))
+      ) : (
+        <li>No hay viajes favoritos</li>
+      )}
             </ul>
           </div>
         

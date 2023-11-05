@@ -370,12 +370,12 @@
 
 /* Estilos para el dropdownContent */
 .dropdownContent {
-  position: relative;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  position: absolute;
+  background-color: transparent;
+  border: none;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  top: 50%; /* Muestra el dropdown debajo del botón */
+  top: 30%; /* Muestra el dropdown debajo del botón */
   left: 50%; /* Centra el dropdown horizontalmente */
   transform: translateX(-50%); /* Centra el dropdown horizontalmente */
   width: 200px; /* Ajusta el ancho según tus necesidades */
@@ -384,19 +384,19 @@
 /* Estilos para los elementos li en la lista */
 .dropdownContent ul {
   list-style: none;
+  position: absolute;
   padding: 0;
   margin: 0;
 }
 
 .dropdownContent li {
   padding: 8px 0; /* Ajusta el espaciado vertical entre elementos */
-  text-decoration: none;
   display: block;
-  color: #333;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .dropdownContent li:hover {
-  background-color: #f5f5f5;
   cursor: pointer;
 }
 
@@ -414,11 +414,11 @@
   font-weight: bold;
   position: absolute;
   left: 18%; /* Ajusta la posición horizontal del botón */
-  top: 40%; /* Ajusta la posición vertical del botón */
+  top: 20%; /* Ajusta la posición vertical del botón */
 }
 
   
   .btnFrecuentes:hover {
-    background-color: #0055CC; /* Cambia el color al pasar el cursor por encima */
+    background-color: #6380a9; /* Cambia el color al pasar el cursor por encima */
   }
   
