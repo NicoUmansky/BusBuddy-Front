@@ -30,6 +30,7 @@ const PantallaPrincipal = () => {
   var [FavName, setFavName] = useState("");
   var [Showmenu, setMenu] = useState(false);
   var [relleno, setRelleno] = useState(false);
+  var [idFav, setIdFav] = useState();
   const[ShowPopUp, setShowPopUp] = useState(false);
   const menuRefN = useRef(null);
   const menuRefB = useRef(null);
@@ -180,6 +181,27 @@ const ShowInfo = (step) => {
 
   }
 
+  const deleteFav = (e) => {
+    e.preventDefault();      
+    setRelleno(false);
+    alert(idFav);
+    setIdFav(null);
+    const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/DeleteFavorite", {
+      method: "POST",
+      body: JSON.stringify({
+        id: idFav,
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
+      setShowPopUp(false);
+  }
+
+
   const guardarFav = (e) => {
     e.preventDefault();
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/AddFavorite", {
@@ -225,6 +247,7 @@ const ShowInfo = (step) => {
 
   const goToFavorite = (id) => {
     const fav = favoriteTrips.find((trip) => trip.id === id);
+    setIdFav(id);
     setAddress(fav.direccionOrigen);
     setDestination(fav.direccionDestino);
     const fakeEvent = { preventDefault: () => {} };
@@ -406,13 +429,16 @@ async function llamarColectivo(paradaI, paradaD){
       )}
       {ShowConfirmation && (
          <div className={styles.containerINFO}>
-           <button onClick={addFav}>
            {relleno ? (
+            <button onClick={deleteFav}>
         <StarRoundedIcon className={styles.logoFavoritos} style={{ fontSize: 40 }} />
-      ) : (
-        <StarBorderRoundedIcon className={styles.logoFavoritos} style={{ fontSize: 40 }} />
+        </button>
+      ) : ( 
+          <button onClick={addFav}>
+        <StarBorderRoundedIcon className={styles.logoFavoritos} style={{ fontSize: 40 }} />  
+         </button>
+
       )}
-           </button>
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
             <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
