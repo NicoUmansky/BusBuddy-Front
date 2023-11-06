@@ -112,12 +112,7 @@ const ShowInfo = (step) => {
   const handleCallColectivo = (e, fav) => {
     // alert(relleno);
     e.preventDefault();
-    if(fav == true){
-      setRelleno(true);
-    }
-    else{
-      setRelleno(false);
-    }
+    setRelleno(fav)
 
     var newGuide = new window.google.maps.DirectionsService();
     var newRenderer = new window.google.maps.DirectionsRenderer();
@@ -516,7 +511,7 @@ async function llamarColectivo(paradaI, paradaD){
         </div>
         <div className={styles.userInfo}>
           <h1>
-            <PersonIcon className={styles.logoUsuario} style={{ fontSize: 40 }} />
+            <PersonIcon alt="logo usuario"className={styles.logoUsuario} style={{ fontSize: 40 }} />
             <b>{userName}</b>
           </h1>
         </div>
