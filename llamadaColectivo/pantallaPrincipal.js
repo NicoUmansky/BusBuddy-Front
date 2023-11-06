@@ -4,11 +4,13 @@ import { google } from "google-maps"; // Import google-maps types
 import { useUser } from '../components/UserContext';
 import { router } from "next/router";
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';  
-import { Star } from '@mui/icons-material';
+import StarRoundedIcon from '@mui/icons-material/StarRounded'; 
+import PersonIcon from '@mui/icons-material/Person';
+import HistoryIcon from '@mui/icons-material/History';
 
 const PantallaPrincipal = () => {
   const { userId, setUserId } = useUser();
+  const [userName, setUserName] = useState("");
   var i = 0;
   var [address, setAddress] = useState("");
   var [destination, setDestination] = useState("");
@@ -156,6 +158,7 @@ const ShowInfo = (step) => {
           newRenderer.setMap(map);
           setDirectionsRenderer(newRenderer);
           setShowFirstForm(false);
+          menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
           setShowConfirmation(true);
 
         } else {
@@ -184,8 +187,8 @@ const ShowInfo = (step) => {
   const deleteFav = (e) => {
     e.preventDefault();      
     setRelleno(false);
-    alert(idFav);
-    setIdFav(null);
+    // alert(idFav);
+    setIdFav();
     const soli = fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/DeleteFavorite", {
       method: "POST",
       body: JSON.stringify({
@@ -271,12 +274,30 @@ const ShowInfo = (step) => {
 
   const showMenu = (e) => {
     e.preventDefault();
+    if(userId == null){
+      router.push({
+        pathname: '/login',
+      });
+    }
+      else{
+    fetch('https://breakable-turtleneck-shirt-foal.cyclic.app/user/' + userId, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => setUserName(response.nombreapellido))
+      .catch((error) => {
+        console.error('Error al obtener el nombre del usuario', error);
+      });
     setShowDropdown(false)
     setShowFirstForm(false);
     setShowConfirmation(false);
      menuRefN.current.className = "alertaChofer_hiddenMenu__U0aM5";
     setMenu(true);
     mapContainerRef.current.className = "hiddenMap";
+      }
   }
 
   const hideMenu = (e) => {
@@ -470,14 +491,15 @@ async function llamarColectivo(paradaI, paradaD){
           </div>
      <div>
         <button className={styles.btnFrecuentes} onClick={toggleDropdown}>
-          Viajes frecuentes
+          <HistoryIcon  style={{ fontSize: 60 }} />
+           Viajes frecuentes
         </button>
         {showDropdown && (
           <div className={styles.dropdownContent}>
             <ul>      
             {favoriteTrips.length > 0 ? (
         favoriteTrips.map((trip) => (
-          <li key={trip.id} onClick={() => goToFavorite(trip.id)}>
+          <li key={trip.id} id={trip.id}onClick={() => goToFavorite(trip.id)}>
             {trip.nombre}
           </li>
         ))
@@ -489,7 +511,13 @@ async function llamarColectivo(paradaI, paradaD){
         
         )}
         </div>
+        <div className={styles.userInfo}>
+          <h1>
+            <PersonIcon className={styles.logoUsuario} style={{ fontSize: 40 }} />
+            <b>{userName}</b>
+          </h1>
         </div>
+      </div>
       )}
 
       {NextPage && (
