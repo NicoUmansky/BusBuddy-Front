@@ -7,6 +7,8 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded'; 
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
+import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const PantallaPrincipal = () => {
   const { userId, setUserId } = useUser();
@@ -404,7 +406,7 @@ async function llamarColectivo(paradaI, paradaD){
   return (
     <div>
         <button ref={menuRefN}className={styles.btnHamburguesa} onClick={showMenu}>
-        <img className={styles.tresRayitas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
+        <MenuRoundedIcon className={styles.tresRayitas} style={{fontSize: 60}}/>
       </button>
     <div ref={mapContainerRef} className={styles.mapContainer} />
  {showFirstForm && (
@@ -460,7 +462,7 @@ async function llamarColectivo(paradaI, paradaD){
       )}
           <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
-            <img className={styles.Flecha}src="https://cdn-icons-png.flaticon.com/512/8138/8138445.png" alt='Botón Volver Atras'></img>
+          <ArrowCircleLeftRoundedIcon style={{fontSize: 40}}/>
           </button>
           <div className={styles.textInfo}>
           <h1><b>Información viaje</b></h1>
