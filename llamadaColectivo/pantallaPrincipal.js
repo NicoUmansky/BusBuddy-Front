@@ -443,7 +443,7 @@ async function llamarColectivo(paradaI, paradaD){
             type="submit"
             className={styles.button}
             onClick={(e) => handleCallColectivo(e, false)}>      
-            Siguiente
+            <label>Siguiente</label>
           </button>
         </div>
       </form>
