@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const PantallaPrincipal = () => {
   const { userId, setUserId } = useUser();
@@ -483,15 +484,17 @@ async function llamarColectivo(paradaI, paradaD){
       {Showmenu && (
         <div className={styles.containerMENU}>
           <button ref={menuRefB}className={styles.btnHamburguesa} onClick={hideMenu}>
-            <img className={styles.tresRayitasBlancas} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png" alt='Botón Menú'></img>
+            <MenuRoundedIcon className={styles.tresRayitasBlancas} alt='Botón Menú'style={{fontSize: 60}}/>
           </button>
           <div>
-            <button className={styles.btnCerrarSesion} onClick={cerrarSesion}>Cerrar Sesión</button>
-            <img className={styles.logoCerrarSesion} src="https://static-00.iconduck.com/assets.00/logout-icon-1873x2048-lbrmz3mj.png" alt='Botón Cerrar Sesión'></img>
+            <button className={styles.btnCerrarSesion} onClick={cerrarSesion}>
+              <LogoutIcon  alt='Botón Cerrar Sesión' style={{fontSize: 50}}/>
+            Cerrar Sesión
+            </button>
           </div>
      <div>
         <button className={styles.btnFrecuentes} onClick={toggleDropdown}>
-          <HistoryIcon  style={{ fontSize: 60 }} />
+          <HistoryIcon  style={{ fontSize: 50 }} />
            Viajes frecuentes
         </button>
         {showDropdown && (

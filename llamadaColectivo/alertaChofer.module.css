@@ -269,6 +269,7 @@
   .containerMENU{
     height: 100vh;
     width: 100vw;
+    max-width: 400px;
     background-color: #1C1C1E;
     /* margin-top: -6.2%; */
   }
@@ -288,15 +289,23 @@
     z-index: 1;
     margin-top: 3%;
     right: 82%;
+    color: white;
   }
 
   .btnCerrarSesion{
-    position: absolute;
+    background-color: transparent;
+    color: hsl(0, 3%, 57%);
+    padding: 15px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
     font-size: 30px;
     font-weight: bold;
-    margin-top: 20%;
-    color:hsl(0, 3%, 57%);
-    margin-left: 18%;
+    position: absolute;
+    left: 10%; /* Ajusta la posición horizontal del botón */
+    top: 12%;
   }
 
   .logoCerrarSesion{
@@ -417,7 +426,7 @@
   font-weight: bold;
   position: absolute;
   left: 10%; /* Ajusta la posición horizontal del botón */
-  top: 20%; /* Ajusta la posición vertical del botón */
+  top: 25%; /* Ajusta la posición vertical del botón */
 }
 
   
