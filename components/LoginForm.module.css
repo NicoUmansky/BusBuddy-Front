@@ -1,5 +1,5 @@
 .container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 20 auto;
     padding: 20px;
     background-color: #1C1C1E;
@@ -9,6 +9,7 @@
     width: 100vw; 
     display: grid;
     place-items: center;
+    transform: translateX(1%);
   }
   .text{
     margin-bottom: -10%;
