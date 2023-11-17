@@ -426,6 +426,7 @@ async function llamarColectivo(paradaI, paradaD){
             id="btnUbiActual"
             className={styles.btnUbiActual}
             onClick={getLocation}
+            alt="Ubicación Actual"
           >
             <b>Ubicación Actual</b>
           </button>
@@ -443,7 +444,8 @@ async function llamarColectivo(paradaI, paradaD){
           <button 
             type="submit"
             className={styles.button}
-            onClick={(e) => handleCallColectivo(e, false)}>      
+            onClick={(e) => handleCallColectivo(e, false)}
+            alt="Siguiente">      
             <label>Siguiente</label>
           </button>
         </div>
@@ -461,7 +463,7 @@ async function llamarColectivo(paradaI, paradaD){
          </button>
 
       )}
-          <button onClick={elegirParadaRandom} className={styles.buttonConfirmation}>Llamar colectivo</button>
+          <button onClick={elegirParadaRandom} className={styles.buttonConfirmation} alt="Llamar Colectivo">Llamar colectivo</button>
           <button className={styles.Atrasbtn} onClick={goBack}>
           <ArrowCircleLeftRoundedIcon style={{fontSize: 40}}/>
           </button>
@@ -478,7 +480,7 @@ async function llamarColectivo(paradaI, paradaD){
       {ShowPopUp && (
         <div className={styles.PopUp}>
           <input id="confFav" className={styles.inputPopUp} placeholder='Ingresar nombre:' onChange={handleChange}></input>
-          <button className={styles.btnPopUp} onClick={guardarFav}>Guardar</button>
+          <button className={styles.btnPopUp} alt="Guardar Favorito" onClick={guardarFav}>Guardar</button>
         </div>
       )}
       {Showmenu && (
@@ -493,7 +495,7 @@ async function llamarColectivo(paradaI, paradaD){
             </button>
           </div>
      <div>
-        <button className={styles.btnFrecuentes} onClick={toggleDropdown}>
+        <button className={styles.btnFrecuentes} alt="Viajes Frecuentes" onClick={toggleDropdown}>
           <HistoryIcon  style={{ fontSize: 50 }} />
            Viajes frecuentes
         </button>
@@ -527,7 +529,7 @@ async function llamarColectivo(paradaI, paradaD){
         <div className={styles.containerINFOFinal}>
           <h2 className={styles.llegadaBus}>El colectivo llegará a las {HoraSubida} aproximadamente</h2>
           <h2 className={styles.llegadaFinal}>Llegará a su destino a las <b>{HoraBajada}</b> aproximadamente</h2>
-          <button className={styles.cancelarBtn} onClick={CancelRequest}>CANCELAR VIAJE</button>
+          <button className={styles.cancelarBtn} alt="Cancelar Viaje"onClick={CancelRequest}>CANCELAR VIAJE</button>
     </div>
       )}
     </div>
