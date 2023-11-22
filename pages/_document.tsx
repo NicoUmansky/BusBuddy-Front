@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import  EqualWebScript from '../components/equalweb'
 import { config } from 'dotenv'
 config()
 console.log(process.env.NEXT_PUBLIC_API_KEY)
