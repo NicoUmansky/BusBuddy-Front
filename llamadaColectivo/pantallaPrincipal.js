@@ -57,6 +57,12 @@ const PantallaPrincipal = () => {
        initializeMap();
       };
       document.body.appendChild(script);
+      const script2 = document.createElement("script");
+      script2.onload = () => {
+      window.interdeal = { "sitekey": "2dbdf95476f12d85c1b8f23c89e594d1", "Position": "Right", "Menulang": "ES", "domains": { "js": "https://cdn.equalweb.com/", "acc": "https://access.equalweb.com/" }, "btnStyle": { "vPosition": [ "80%", null ], "scale": [ "0.8", "0.8" ], "color": { "main": "#2e850f" }, "icon": { "type": 7, "shape": "semicircle", "outline": false } } }; (function(doc, head, body){ var coreCall = doc.createElement('script'); coreCall.src = interdeal.domains.js + 'core/4.5.12/accessibility.js'; coreCall.defer = true; coreCall.integrity = 'sha512-QHRb6G6oDd5olis2Cry60Jf8LsyOtVE0nD9n2LcY20fodiZahlu99srQ3UNKvosE/tZrQ2Fs4CeAPX+MCZpg7w=='; coreCall.crossOrigin = 'anonymous'; coreCall.setAttribute('data-cfasync', true ); body? body.appendChild(coreCall) : head.appendChild(coreCall); })(document, document.head, document.body);
+      console.log("EqualWeb initialized");
+    };
+      document.head.appendChild(script2);
     }
   }, []);
 
