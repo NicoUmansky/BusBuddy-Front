@@ -62,14 +62,26 @@ const PantallaPrincipal = () => {
               "js": "https://cdn.equalweb.com/", 
               "acc": "https://access.equalweb.com/" 
             }, 
-            "btnStyle": { 
-              "vPosition": [ "80%", null ], 
-              "scale": [ "0.8", "0.8" ], 
-              "zIndex": ["2"],
-              "color": { "main": "#2e850f" }, 
-              "icon": { "type": 7, "shape": "semicircle", "outline": false } 
-            } 
-          };
+            "btnStyle": {
+              "vPosition": [
+                  "50%",
+                  null
+              ],
+              "scale": [
+                  "0.8",
+                  "0.8"
+              ],
+              "color": {
+                  "main": "#2e850f",
+                  "second": ""
+              },
+              "icon": {
+                  "type": 11,
+                  "shape": "circle",
+                  "outline": false
+              }
+          }
+      };
         }
         
         // Código EqualWeb...
@@ -80,7 +92,6 @@ const PantallaPrincipal = () => {
           coreCall.integrity       = 'sha512-QHRb6G6oDd5olis2Cry60Jf8LsyOtVE0nD9n2LcY20fodiZahlu99srQ3UNKvosE/tZrQ2Fs4CeAPX+MCZpg7w==';
           coreCall.crossOrigin     = 'anonymous';
           coreCall.setAttribute('data-cfasync', true );
-          alert("hola");
           head.appendChild(coreCall);
         })(document, document.head, document.body);
   
