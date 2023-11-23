@@ -52,54 +52,11 @@ const PantallaPrincipal = () => {
       script.async = true;
       script.defer = true;
       script.onload = () => {
-        // Verifica si window.interdeal ya está definido
-        if (!window.interdeal) {
-          window.interdeal = { 
-            "sitekey": "2dbdf95476f12d85c1b8f23c89e594d1", 
-            "Position": "Right", 
-            "Menulang": "ES", 
-            "domains": { 
-              "js": "https://cdn.equalweb.com/", 
-              "acc": "https://access.equalweb.com/" 
-            }, 
-            "btnStyle": {
-              "vPosition": [
-                  "50%",
-                  null
-              ],
-              "scale": [
-                  "0.8",
-                  "0.8"
-              ],
-              "color": {
-                  "main": "#2e850f",
-                  "second": ""
-              },
-              "icon": {
-                  "type": 11,
-                  "shape": "circle",
-                  "outline": false
-              }
-          }
+        googleMapsInitialized = true;
+        console.log("Google Maps initialized");
+       initializeMap();
       };
-        }
-        
-        // Código EqualWeb...
-        (function(doc, head, body){
-          var coreCall             = doc.createElement('script');
-          coreCall.src             = interdeal.domains.js + 'core/4.5.12/accessibility.js';
-          coreCall.defer           = true;
-          coreCall.integrity       = 'sha512-QHRb6G6oDd5olis2Cry60Jf8LsyOtVE0nD9n2LcY20fodiZahlu99srQ3UNKvosE/tZrQ2Fs4CeAPX+MCZpg7w==';
-          coreCall.crossOrigin     = 'anonymous';
-          coreCall.setAttribute('data-cfasync', true );
-          head.appendChild(coreCall);
-        })(document, document.head, document.body);
-  
-        // Llama a la función para inicializar el mapa
-        initializeMap();
-      };
-      document.head.appendChild(script);
-      googleMapsInitialized = true;
+      document.body.appendChild(script);
     }
   }, []);
 
