@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />  
     </UserProvider>
   );
 }

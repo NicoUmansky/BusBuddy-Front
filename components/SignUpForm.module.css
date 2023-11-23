@@ -9,7 +9,7 @@
   width: 100vw; 
   display: grid;
   place-items: center;
-  transform: translateX(1%);
+  /* transform: translateX(1%); */
   }
   .text{
     color: white;
